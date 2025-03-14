@@ -46,7 +46,7 @@ export default function Header() {
           </li>
           <li>
             {/* შესაცვლელი: mt-[2px] უწერია რომ ცენტრში გამოჩნდეს */}
-            <Link href="/login" className=" leading-[24px]">
+            <Link href="/" className=" leading-[24px]">
               <Button>რეგისტრაცია</Button>
             </Link>
           </li>
