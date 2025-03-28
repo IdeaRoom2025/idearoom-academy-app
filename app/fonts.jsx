@@ -4,32 +4,32 @@ import localFont from "next/font/local";
 export const contractica_caps = localFont({
   src: [
     {
-      path: "./fonts/tbcContracticaCAPS-Light.ttf",
+      path: "./fonts/TBCContracticaCAPS-Light.ttf",
       weight: "300",
       style: "normal",
     },
     {
-      path: "./fonts/tbcContracticaCAPS-Regular.ttf",
+      path: "./fonts/TBCContracticaCAPS-Regular.ttf",
       weight: "400",
       style: "normal",
     },
     {
-      path: "./fonts/tbcContracticaCAPS-Book.ttf",
+      path: "./fonts/TBCContracticaCAPS-Book.ttf",
       weight: "450",
       style: "normal",
     },
     {
-      path: "./fonts/tbcContracticaCAPS-Medium.ttf",
+      path: "./fonts/TBCContracticaCAPS-Medium.ttf",
       weight: "500",
       style: "normal",
     },
     {
-      path: "./fonts/tbcContracticaCAPS-Bold.ttf",
+      path: "./fonts/TBCContracticaCAPS-Bold.ttf",
       weight: "700",
       style: "normal",
     },
     {
-      path: "./fonts/tbcContracticaCAPS-Black.ttf",
+      path: "./fonts/TBCContracticaCAPS-Black.ttf",
       weight: "900",
       style: "normal",
     },
