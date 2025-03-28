@@ -4,32 +4,32 @@ import localFont from "next/font/local";
 export const contractica_caps = localFont({
   src: [
     {
-      path: "../public/fonts/tbcContracticaCAPS-Light.ttf",
+      path: "./fonts/tbcContracticaCAPS-Light.ttf",
       weight: "300",
       style: "normal",
     },
     {
-      path: "../public/fonts/tbcContracticaCAPS-Regular.ttf",
+      path: "./fonts/tbcContracticaCAPS-Regular.ttf",
       weight: "400",
       style: "normal",
     },
     {
-      path: "../public/fonts/tbcContracticaCAPS-Book.ttf",
+      path: "./fonts/tbcContracticaCAPS-Book.ttf",
       weight: "450",
       style: "normal",
     },
     {
-      path: "../public/fonts/tbcContracticaCAPS-Medium.ttf",
+      path: "./fonts/tbcContracticaCAPS-Medium.ttf",
       weight: "500",
       style: "normal",
     },
     {
-      path: "../public/fonts/tbcContracticaCAPS-Bold.ttf",
+      path: "./fonts/tbcContracticaCAPS-Bold.ttf",
       weight: "700",
       style: "normal",
     },
     {
-      path: "../public/fonts/tbcContracticaCAPS-Black.ttf",
+      path: "./fonts/tbcContracticaCAPS-Black.ttf",
       weight: "900",
       style: "normal",
     },
@@ -42,32 +42,32 @@ export const contractica_caps = localFont({
 export const contractica = localFont({
   src: [
     {
-      path: "../public/fonts/TBCContractica-Light.ttf",
+      path: "./fonts/TBCContractica-Light.ttf",
       weight: "300",
       style: "normal",
     },
     {
-      path: "../public/fonts/TBCContractica-Regular.ttf",
+      path: "./fonts/TBCContractica-Regular.ttf",
       weight: "400",
       style: "normal",
     },
     {
-      path: "../public/fonts/TBCContractica-Book.ttf",
+      path: "./fonts/TBCContractica-Book.ttf",
       weight: "450",
       style: "normal",
     },
     {
-      path: "../public/fonts/TBCContractica-Medium.ttf",
+      path: "./fonts/TBCContractica-Medium.ttf",
       weight: "500",
       style: "normal",
     },
     {
-      path: "../public/fonts/TBCContractica-Bold.ttf",
+      path: "./fonts/TBCContractica-Bold.ttf",
       weight: "700",
       style: "normal",
     },
     {
-      path: "../public/fonts/TBCContractica-Black.ttf",
+      path: "./fonts/TBCContractica-Black.ttf",
       weight: "900",
       style: "normal",
     },
