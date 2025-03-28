@@ -17,6 +17,26 @@
 .feedback-shadow {
   box-shadow: 1px 1px 30px -3px #0000000d;
 }
+.blog-shadow {
+  filter: drop-shadow(4px 4px 12px #9aa5b526);
+}
+.spinner {
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border-left-color: #8471d9;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 @font-face {
   font-family: "tbcContracticaCAPS";
   src: url("/fonts/tbcContracticaCAPS-Regular.ttf") format("truetype");
@@ -64,7 +84,10 @@
   font-style: normal;
   font-display: swap;
 }
-
+::selection {
+  background-color: #8471d9;
+  color: #fff;
+}
 .regular-text {
   font-family: var(--font-contractica);
 }
@@ -72,7 +95,20 @@
 .caps-text {
   font-family: var(--font-contractica-caps);
 }
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 1rem));
+  }
+}
 
+.animate-scroll {
+  animation: scroll var(--animation-duration, 40s)
+    var(--animation-timing, linear) var(--animation-direction, forwards)
+    infinite;
+}
 @layer base {
   :root {
     --background: 0 0% 100%;

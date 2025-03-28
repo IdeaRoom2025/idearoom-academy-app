@@ -1,5 +1,7 @@
 import "./globals.css";
 import { contractica, contractica_caps } from "./fonts";
+import Header from "./_components/Header";
+import Footer from "./_components/Footer";
 
 export const metadata = {
   title: "IdeaRoom",
@@ -12,7 +14,9 @@ export default function RootLayout({ children }) {
       <body
         className={`bg-background ${contractica.variable} ${contractica_caps.variable} antialiased`}
       >
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
