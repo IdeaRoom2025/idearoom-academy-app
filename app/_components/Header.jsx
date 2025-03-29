@@ -213,7 +213,7 @@ export default function Header() {
               <div className="mt-2 h-1 w-20 lg:w-24 rounded-[4px] bg-primary-500"></div>
             </div>
             <Image
-              className="right-[10px] lg:right-[15px] cursor-pointer w-[30px] h-[30px] lg:w-[36px] lg:h-[36px] z-10"
+              className="right-[10px] max-lg:mt-[40px] lg:right-[15px] cursor-pointer w-[30px] h-[30px] lg:w-[36px] lg:h-[36px] z-10"
               src={cancel}
               onClick={handleCancel}
               alt="cancel svg"
