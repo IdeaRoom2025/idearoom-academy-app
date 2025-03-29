@@ -261,7 +261,7 @@ export default function Header() {
                 <div className="relative w-full rounded-[4px]">
                   {!value && !showNativePicker && (
                     <div
-                      className="absolute rounded-[4px] inset-y-0 left-0 flex items-center pl-3 lg:pl-4 text-[#8F949A] text-[13px] lg:text-sm cursor-pointer"
+                      className="absolute w-full rounded-[4px] inset-y-0 left-0 flex items-center pl-3 lg:pl-4 text-[#8F949A] text-[13px] lg:text-sm cursor-pointer"
                       onClick={() => {
                         setTimeout(() => {
                           setShowNativePicker(true);
@@ -283,7 +283,7 @@ export default function Header() {
                   )}
 
                   {/* ნამდვილი date input */}
-                  <input
+                  <Input
                     id="actual-dob-input"
                     name="birth_date"
                     type="date"
