@@ -153,13 +153,6 @@ export default function Header() {
 
     return (
       <div className="flex relative p-2 lg:p-4 w-full caps-text rounded-[8px] lg:rounded-[20px] flex-col lg:flex-row h-full lg:max-h-[650px]">
-        <Image
-          className="absolute right-[10px] lg:right-[15px] cursor-pointer w-[30px] h-[30px] lg:w-[36px] lg:h-[36px] top-[10px] lg:top-[15px] z-10"
-          src={cancel}
-          onClick={handleCancel}
-          alt="cancel svg"
-        />
-
         <div className="hidden lg:flex bg-[#EAF1FA] h-[630px] w-full lg:w-[50%] items-center justify-center rounded-[20px]">
           <img
             src={signUpPic.src}
@@ -175,11 +168,20 @@ export default function Header() {
               : "h-[650px] overflow-y-hidden"
           }`}
         >
-          <div className="mb-4 lg:mb-6">
-            <h2 className="text-xl max-lg:mt-[48px] lg:text-2xl font-bold text-[#434A53]">
-              კურსზე რეგისტრაცია
-            </h2>
-            <div className="mt-2 mb-6 lg:mb-12 h-1 w-20 lg:w-24 rounded-[4px] bg-primary-500"></div>
+          <div className="mb-4 flex items-center justify-between relative lg:mb-6">
+            <div>
+              <h2 className="text-xl max-lg:mt-[48px] lg:text-2xl font-bold text-[#434A53]">
+                კურსზე რეგისტრაცია
+              </h2>
+
+              <div className="mt-2 mb-6 lg:mb-12 h-1 w-20 lg:w-24 rounded-[4px] bg-primary-500"></div>
+            </div>
+            <Image
+              className=" max-lg:top-[65px] right-[10px] lg:right-[15px] cursor-pointer w-[30px] h-[30px] lg:w-[36px] lg:h-[36px] top-[10px] lg:top-[15px] z-10"
+              src={cancel}
+              onClick={handleCancel}
+              alt="cancel svg"
+            />
           </div>
 
           {formSuccess ? (
@@ -226,6 +228,7 @@ export default function Header() {
                     name="birth_date"
                     type="date"
                     className="w-full font-[500] mt-1 text-[#8F949A] bg-white shadow-none border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 lg:pl-4 h-[45px] lg:h-[50px]"
+                    placeholder="დაბადების თარიღი"
                     required
                   />
                 </div>
@@ -476,7 +479,7 @@ export default function Header() {
               <Link
                 href="/offer"
                 className={`block py-2 text-[14px] leading-[20px] ${
-                  pathname === "/" ? "text-primary-500" : ""
+                  pathname === "/offer" ? "text-primary-500" : ""
                 }`}
                 onClick={handleLinkClick}
               >
