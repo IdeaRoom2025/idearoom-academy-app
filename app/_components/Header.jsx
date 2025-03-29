@@ -28,6 +28,7 @@ const VisuallyHidden = ({ children }) => (
 );
 
 export default function Header() {
+  const [date, setDate] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -38,6 +39,14 @@ export default function Header() {
   const [isCoursesLoading, setIsCoursesLoading] = useState(false);
   const fullscreenChecked = useRef(false);
   const pathname = usePathname();
+  const [value, setValue] = useState("");
+  const [showNativePicker, setShowNativePicker] = useState(false);
+
+  // ფუნქცია, რომელიც დააბრუნებს მხოლოდ მნიშვნელობას input-ის value-დან
+  const handleChange = (e) => {
+    setValue(e.target.value);
+    setShowNativePicker(!!e.target.value); // თუ მნიშვნელობა არსებობს, აღარ ვაჩენთ placeholder-ს
+  };
 
   // Handle fullscreen check on initial render and window resize
   useEffect(() => {
@@ -86,12 +95,29 @@ export default function Header() {
     setMobileMenuOpen(false);
   };
 
+  // ბეზოპასნი ფუნქცია მენიუს გასახსნელად, იყენებს setTimeout-ს რომ მოხდეს ახალი ციკლში
+  const safelyToggleMobileMenu = () => {
+    setTimeout(() => {
+      setMobileMenuOpen((prev) => !prev);
+    }, 0);
+  };
+
+  // ბეზოპასნი ფუნქცია რეგისტრაციის დიალოგის გასახსნელად
+  const safelySetRegistrationOpen = (open) => {
+    setTimeout(() => {
+      setIsRegistrationOpen(open);
+    }, 0);
+  };
+
   // Registration form component
   const RegistrationForm = () => {
     const handleCancel = () => {
-      setIsRegistrationOpen(false);
-      setFormError("");
-      setFormSuccess(false);
+      // უსაფრთხოდ ვხურავთ დიალოგს
+      setTimeout(() => {
+        setIsRegistrationOpen(false);
+        setFormError("");
+        setFormSuccess(false);
+      }, 0);
     };
 
     // Handle form submission: extract form data and insert into "users_form" table
@@ -151,33 +177,43 @@ export default function Header() {
       }
     };
 
+    // ვეთანხმები ტექსტზე დაჭერის დამუშავება
+    const handleTermsClick = (e) => {
+      // თავიდან ავირიდოთ ბაბლინგი, რომ არ მოხდეს ჩეკბოქსის ჩართვა/გამორთვა
+      e.preventDefault();
+      e.stopPropagation();
+
+      // აქ შეგიძლიათ დაამატოთ წესებისა და პირობების დიალოგის ჩვენება
+      alert("წესებისა და პირობების გვერდი ჯერ ხელმისაწვდომი არ არის");
+    };
+
     return (
       <div className="flex relative p-2 lg:p-4 w-full caps-text rounded-[8px] lg:rounded-[20px] flex-col lg:flex-row h-full lg:max-h-[650px]">
-        <div className="hidden lg:flex bg-[#EAF1FA] h-[630px] w-full lg:w-[50%] items-center justify-center rounded-[20px]">
+        <div className="hidden lg:flex bg-[#EAF1FA] h-[auto] w-full lg:w-[50%] items-center justify-center rounded-[20px]">
           <img
             src={signUpPic.src}
             alt="sign-up-illustration"
-            className="w-[544px] h-[363px] object-cover"
+            className="w-[544px]  object-cover"
           />
         </div>
 
         <div
-          className={`w-full lg:w-[50%] p-4 lg:p-8 ${
+          className={`w-full  lg:w-[50%] p-4 lg:p-8 ${
             isFullscreen
               ? "max-h-[80vh] overflow-y-auto"
               : "h-[650px] overflow-y-hidden"
           }`}
         >
-          <div className="mb-4 flex items-center justify-between relative lg:mb-6">
+          <div className="mb-12 flex items-center justify-between relative ">
             <div>
               <h2 className="text-xl max-lg:mt-[48px] lg:text-2xl font-bold text-[#434A53]">
                 კურსზე რეგისტრაცია
               </h2>
 
-              <div className="mt-2 mb-6 lg:mb-12 h-1 w-20 lg:w-24 rounded-[4px] bg-primary-500"></div>
+              <div className="mt-2 h-1 w-20 lg:w-24 rounded-[4px] bg-primary-500"></div>
             </div>
             <Image
-              className=" max-lg:top-[65px] right-[10px] lg:right-[15px] cursor-pointer w-[30px] h-[30px] lg:w-[36px] lg:h-[36px] top-[10px] lg:top-[15px] z-10"
+              className="right-[10px] lg:right-[15px] cursor-pointer w-[30px] h-[30px] lg:w-[36px] lg:h-[36px] z-10"
               src={cancel}
               onClick={handleCancel}
               alt="cancel svg"
@@ -222,13 +258,40 @@ export default function Header() {
                   />
                 </div>
 
-                <div>
-                  <Input
-                    id="dob"
+                <div className="relative">
+                  {/* ვიზუალური placeholder */}
+                  {!value && !showNativePicker && (
+                    <div
+                      className="absolute inset-y-0 left-0 flex items-center pl-3 lg:pl-4 text-[#8F949A] text-[13px] lg:text-sm cursor-pointer"
+                      onClick={() => {
+                        // setTimeout-ით ვუზრუნველყოფთ ახალ ციკლში გაშვებას
+                        setTimeout(() => {
+                          setShowNativePicker(true);
+                          // ფოკუსი გავაკეთოთ hidden input-ზე
+                          const dateInput =
+                            document.getElementById("actual-dob-input");
+                          if (dateInput && dateInput.showPicker) {
+                            dateInput.showPicker();
+                          } else if (dateInput) {
+                            dateInput.focus();
+                          }
+                        }, 0);
+                      }}
+                    >
+                      <p className="max-sm:text-[13px] mt-3">mm/dd/yyyy</p>
+                    </div>
+                  )}
+
+                  {/* ნამდვილი date input */}
+                  <input
+                    id="actual-dob-input"
                     name="birth_date"
                     type="date"
-                    className="w-full font-[500] mt-1 text-[#8F949A] bg-white shadow-none border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 lg:pl-4 h-[45px] lg:h-[50px]"
-                    placeholder="დაბადების თარიღი"
+                    value={value}
+                    onChange={handleChange}
+                    className={`w-full font-[500] mt-1 ${
+                      value ? "text-secondary-500" : " text-transparent"
+                    } bg-white shadow-none border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 pr-4 lg:pl-4 h-[45px] lg:h-[50px]`}
                     required
                   />
                 </div>
@@ -322,7 +385,12 @@ export default function Header() {
                   className="text-xs lg:text-sm regular-text cursor-pointer text-[#434A53]"
                 >
                   ვეთანხმები{" "}
-                  <span className="text-[#5387C9]">წესებს და პირობებს</span>
+                  <span
+                    className="text-[#5387C9] cursor-pointer"
+                    onClick={handleTermsClick}
+                  >
+                    წესებს და პირობებს
+                  </span>
                 </Label>
               </div>
 
@@ -425,9 +493,7 @@ export default function Header() {
           <li>
             <AlertDialog
               open={isRegistrationOpen}
-              onOpenChange={(open) =>
-                setTimeout(() => setIsRegistrationOpen(open), 0)
-              }
+              onOpenChange={safelySetRegistrationOpen}
             >
               <AlertDialogTrigger asChild>
                 <Button className="w-[156px] h-[48px]">რეგისტრაცია</Button>
@@ -450,12 +516,7 @@ export default function Header() {
         </ul>
 
         <div className="lg:hidden">
-          <button
-            onClick={() =>
-              setTimeout(() => setMobileMenuOpen(!mobileMenuOpen), 0)
-            }
-            className="p-2"
-          >
+          <button onClick={safelyToggleMobileMenu} className="p-2">
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -522,9 +583,7 @@ export default function Header() {
             <li className="py-2">
               <AlertDialog
                 open={isRegistrationOpen}
-                onOpenChange={(open) =>
-                  setTimeout(() => setIsRegistrationOpen(open), 0)
-                }
+                onOpenChange={safelySetRegistrationOpen}
               >
                 <AlertDialogTrigger asChild>
                   <Button className="w-full text-[14px]">რეგისტრაცია</Button>
