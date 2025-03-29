@@ -258,13 +258,11 @@ export default function Header() {
                   />
                 </div>
 
-                <div className="relative">
-                  {/* ვიზუალური placeholder */}
+                <div className="relative w-full rounded-[4px]">
                   {!value && !showNativePicker && (
                     <div
-                      className="absolute inset-y-0 left-0 flex items-center pl-3 lg:pl-4 text-[#8F949A] text-[13px] lg:text-sm cursor-pointer"
+                      className="absolute rounded-[4px] inset-y-0 left-0 flex items-center pl-3 lg:pl-4 text-[#8F949A] text-[13px] lg:text-sm cursor-pointer"
                       onClick={() => {
-                        // setTimeout-ით ვუზრუნველყოფთ ახალ ციკლში გაშვებას
                         setTimeout(() => {
                           setShowNativePicker(true);
                           // ფოკუსი გავაკეთოთ hidden input-ზე
@@ -278,7 +276,9 @@ export default function Header() {
                         }, 0);
                       }}
                     >
-                      <p className="max-sm:text-[13px] mt-3">mm/dd/yyyy</p>
+                      <p className="max-sm:text-[13px] rounded-[4px] w-full mt-3">
+                        mm/dd/yyyy
+                      </p>
                     </div>
                   )}
 
@@ -291,7 +291,7 @@ export default function Header() {
                     onChange={handleChange}
                     className={`w-full font-[500] mt-1 ${
                       value ? "text-secondary-500" : " text-transparent"
-                    } bg-white shadow-none border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 pr-4 lg:pl-4 h-[45px] lg:h-[50px]`}
+                    } bg-white rounded-[4px] w-full border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 pr-4 lg:pl-4 h-[45px] lg:h-[50px]`}
                     required
                   />
                 </div>
