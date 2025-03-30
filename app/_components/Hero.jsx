@@ -1,39 +1,60 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import premier from "../../public/premier.png";
 import arrowRight from "../../public/arrowRight.svg";
 import sliderBg from "../../public/sliderBg.png";
 import { Button } from "../../components/ui/button";
+import { createClient } from "@supabase/supabase-js";
+
+// Initialize Supabase client
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [startX, setStartX] = useState(0);
   const [endX, setEndX] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [slides, setSlides] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const slides = [
-    {
-      image: sliderBg,
-      imageRight: premier,
-      title: "ვიდეო მონტაჟის კურსი",
-      description:
-        "ვიდეო მონტაჟის კურსის პერიოდში ისწავლი რეჟისურასა და მსოფლიო მასშტაბით ერთ-ერთი წამყვან სამონტაჟო პროგრამას Adobe Premiere Pro-ს.",
-    },
-    {
-      image: sliderBg,
-      imageRight: premier,
-      title: "ვიდეო მონტაჟის კურსი",
-      description:
-        "შეისწავლე ვიდეო მონტაჟის ტექნიკები პროფესიონალების დახმარებით და დაიწყე საკუთარი პროექტების შექმნა.",
-    },
-    {
-      image: sliderBg,
-      imageRight: premier,
-      title: "ვიდეო მონტაჟის კურსი",
-      description:
-        "გახდი პროფესიონალი ვიდეო რეჟისორი და დაიწყე კარიერა ციფრული მედიის სფეროში.",
-    },
-  ];
+  // Function to fetch slider data from Supabase
+  async function apiSlider() {
+    let { data, error } = await supabase
+      .from("slider")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Error fetching slider data:", error);
+      return [];
+    }
+
+    return data || [];
+  }
+
+  useEffect(() => {
+    const loadSlides = async () => {
+      setLoading(true);
+      const sliderData = await apiSlider();
+
+      if (sliderData && sliderData.length > 0) {
+        // Transform the Supabase data to match our slide format
+        const formattedSlides = sliderData.map((item) => ({
+          image: sliderBg, // This is static background image
+          imageRight: item.image, // The main image URL from Supabase
+          title: item.title,
+          description: item.text,
+          buttonLink: item.button_link || "#",
+        }));
+
+        setSlides(formattedSlides);
+      }
+      setLoading(false);
+    };
+
+    loadSlides();
+  }, []);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -67,20 +88,43 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
+    if (slides.length === 0) return;
+
     const interval = setInterval(() => {
       nextSlide();
     }, 9000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [slides.length, currentSlide]);
+
+  // Show loading state if slides are being fetched
+  if (loading) {
+    return (
+      <main className="relative max-lg:bg-secondary-50 max-lg:rounded-[20px] max-lg:px-5 max-lg:py-10 max-sm:py-5 max-lg:max-w-[95%] container mt-[128px]">
+        <div className="flex justify-center items-center h-[300px]">
+          <p>იტვირთება...</p>
+        </div>
+      </main>
+    );
+  }
+
+  // Show message if no slides found
+  if (slides.length === 0) {
+    return (
+      <main className="relative max-lg:bg-secondary-50 max-lg:rounded-[20px] max-lg:px-5 max-lg:py-10 max-sm:py-5 max-lg:max-w-[95%] container mt-[128px]">
+        <div className="flex justify-center items-center h-[300px]">
+          <p className="caps-text">არ არის კონტენტი !</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="relative max-lg:bg-secondary-50 max-lg:rounded-[20px] max-lg:px-5 max-lg:py-10 max-sm:py-5  max-lg:max-w-[95%] container mt-[128px] ">
       <div className="absolute max-lg:hidden block inset-0 -z-10">
-        <Image className="" src={sliderBg} alt="Background" />
+        <img src={sliderBg.src} alt="Background" />
       </div>
 
-      {/* სლაიდების კონტეინერი */}
       <div
         className="relative w-full overflow-hidden "
         {...(isMobile
@@ -108,11 +152,16 @@ export default function Hero() {
                   <p className="text-sm sm:text-base md:text-lg lg:text-[15px] xl:text-[18px] font-regular leading-[1.5] sm:leading-[1.6] md:leading-[1.7] max-w-full sm:max-w-[95%] md:max-w-[90%] mt-2">
                     {slide.description}
                   </p>
-                  <Button className="caps-text max-sm:mb-5 max-sm:mt-8 flex items-center gap-3 sm:gap-2 pt-3 h-[48px] mt-4 sm:mt-6 md:mt-8 lg:mt-9 text-sm sm:text-[15px]">
+                  <Button
+                    className="caps-text max-sm:mb-5 max-sm:mt-8 flex items-center gap-3 sm:gap-2 pt-3 h-[48px] mt-4 sm:mt-6 md:mt-8 lg:mt-9 text-sm sm:text-[15px]"
+                    onClick={() =>
+                      (window.location.href = slide.buttonLink || "#")
+                    }
+                  >
                     გაიგე მეტი{" "}
-                    <Image
+                    <img
                       className="mt-[-2px] sm:mt-[-3px] max-sm:mt-[-4px] w-6 h-6 sm:w-[27px] sm:h-[27px]"
-                      src={arrowRight}
+                      src={arrowRight.src}
                       alt="arrowRight-svg"
                       width={24}
                       height={24}
@@ -121,14 +170,13 @@ export default function Hero() {
                 </div>
                 <div className="order-1 lg:order-2">
                   <div className="w-full max-w-[95%] sm:max-w-[90%] md:max-w-[85%] lg:max-w-none mx-auto lg:mx-0 overflow-hidden rounded-md">
-                    <Image
+                    <img
                       quality={100}
                       className="w-full mx-auto h-auto object-cover rounded-md max-sm:mt-4"
                       src={slide.imageRight}
-                      alt="premier-png"
+                      alt="slider-image"
                       width={582}
                       height={425}
-                      priority
                       sizes="(max-width: 640px) 95vw, (max-width: 768px) 90vw, (max-width: 1024px) 85vw, 582px"
                     />
                   </div>
@@ -147,7 +195,7 @@ export default function Hero() {
             className={`w-[11px] h-[11px] rounded-full ${
               currentSlide === index
                 ? "bg-[#fdb927]"
-                : "border-2 border-[#fdb927] max-lg:bg-secondary-900"
+                : "border-2 border-[#fdb927] "
             }`}
           />
         ))}
