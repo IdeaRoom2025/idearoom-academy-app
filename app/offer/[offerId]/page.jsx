@@ -4,10 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "../../../components/ui/button";
 import HeadTopCourse from "../../courses/_components/HeadTopCourse";
-import {
-  getOfferedCourseById,
-  apiDoubleCourse,
-} from "../../services/apiDoubleCourse";
+
 import checkbox from "../../../public/checkbox.svg";
 import lightCalendar from "../../../public/calendarLight.svg";
 import tv from "../../../public/tv.svg";
@@ -18,6 +15,10 @@ import downArrow from "../../../public/downArrow.svg";
 
 // Accordion Component
 function AccordionItem({ title, content }) {
+  useEffect(() => {
+    document.title = "idearoom | შეთავაზება";
+  }, []);
+
   return (
     <div className="py-2">
       <details className="group">

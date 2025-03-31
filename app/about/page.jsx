@@ -3,6 +3,11 @@ import Link from "next/link";
 import homeIcon from "../../public/homeIcon.svg";
 import rightArrow from "../../public/rightArrow.svg";
 import aboutUsPicture from "../../public/team.jpg";
+
+export const metadata = {
+  title: "ჩვენს შესახებ",
+};
+
 export default function page() {
   return (
     <section className="mt-[128px] container mx-auto max-sm:max-w-[90%]">

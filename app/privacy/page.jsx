@@ -4,6 +4,10 @@ import HomeIcon from "../../public/homeIcon.svg";
 import rightArrow from "../../public/rightArrow.svg";
 import React from "react";
 
+export const metadata = {
+  title: "წესები და პირობები",
+};
+
 export default function page() {
   return (
     <div className="container text-secondary-500 max-sm:max-w-[90%] mx-auto max-sm:text-sm mt-[138px]">

@@ -20,6 +20,7 @@ export default function Page() {
 
   // Reset map loaded state when component mounts
   useEffect(() => {
+    document.title = "idearoom | კონტაქტი";
     setMapLoaded(false);
   }, []);
 

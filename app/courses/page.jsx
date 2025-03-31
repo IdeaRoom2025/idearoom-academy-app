@@ -11,6 +11,7 @@ export default function page() {
   const [course, setCourse] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    document.title = "idearoom | კურსები";
     async function fetchCourse() {
       try {
         const data = await getCourses();

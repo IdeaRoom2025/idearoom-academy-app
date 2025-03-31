@@ -11,6 +11,7 @@ export default function Page() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    document.title = "idearoom | შეთავაზება";
     async function fetchCourses() {
       try {
         const data = await apiDoubleCourse();

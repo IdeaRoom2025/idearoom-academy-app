@@ -102,7 +102,7 @@ export default function Hero() {
     return (
       <main className="relative max-lg:bg-secondary-50 max-lg:rounded-[20px] max-lg:px-5 max-lg:py-10 max-sm:py-5 max-lg:max-w-[95%] container mt-[128px]">
         <div className="flex justify-center items-center h-[300px]">
-          <section className="relative z-50 bg-white w-full h-screen">
+          <section className="relative z-50 w-full ">
             <div className="absolute spinner top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50"></div>
           </section>
         </div>

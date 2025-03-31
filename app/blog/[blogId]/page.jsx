@@ -7,6 +7,10 @@ import calendar from "../../../public/calendar.svg";
 import { getBlogs } from "../../services/apiBlogs";
 import HeadTop from "../_components/HeadTop";
 
+export const metadata = {
+  title: "ბლოგი",
+};
+
 function formatDateGeorgian(dateString) {
   const date = new Date(dateString);
   const georgianMonths = [

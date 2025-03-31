@@ -1,5 +1,9 @@
 import React from "react";
 
+export const metadata = {
+  title: "404 გვერდი ვერ მოიძებნა",
+};
+
 export default function notFound() {
   return (
     <section className="container max-md:max-w-[80%] text-center items-center justify-center mt-[200px]">
