@@ -97,7 +97,7 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="relative w-full h-[511px] mt-[45px] mb-12">
+      <div className="relative w-full h-[511px] mt-[38px] mb-12">
         {!mapLoaded && (
           <section className="absolute inset-0 flex items-center justify-center bg-white z-50">
             <div className="spinner"></div>
@@ -189,16 +189,20 @@ export default function Page() {
           </div>
 
           <div className="space-y-6">
-            <div className="flex ml-[-4px] items-center gap-4">
+            <div className="flex ml-[6px] md:ml-[-4px] items-center gap-4">
               <Image src={location} alt="location svg" />
               <p className="text-sm text-[#282525]">კოსტავა N38, ქუთაისი</p>
             </div>
             <div className="flex items-center gap-4">
-              <Image className="" src={phone} alt="phone svg" />
+              <Image className="max-md:ml-[8px]" src={phone} alt="phone svg" />
               <p className="text-sm text-[#282525]">+995 551 25 13 14</p>
             </div>
             <div className="flex items-center gap-4">
-              <Image className="" src={message} alt="message svg" />
+              <Image
+                className="max-md:ml-[8px]"
+                src={message}
+                alt="message svg"
+              />
               <p className="text-sm text-[#282525]">idearoom@info.ge</p>
             </div>
           </div>
