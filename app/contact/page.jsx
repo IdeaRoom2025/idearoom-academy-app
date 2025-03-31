@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import location from "../../public/location.svg";
 import phone from "../../public/phone.svg";
@@ -11,12 +11,17 @@ import Link from "next/link";
 export default function Page() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
-  const [mapLoaded, setMapLoaded] = useState(false); // რუკის ჩატვირთვის სტატუსი
+  const [mapLoaded, setMapLoaded] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
+
+  // Reset map loaded state when component mounts
+  useEffect(() => {
+    setMapLoaded(false);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -64,6 +69,10 @@ export default function Page() {
     }
   };
 
+  const handleMapLoad = () => {
+    setMapLoaded(true);
+  };
+
   return (
     <section className="container mt-[100px] max-sm:max-w-[90%] mx-auto py-8">
       <div className="flex max-sm:flex-col max-sm:items-center max-sm:text-center items-center gap-3 my-3">
@@ -97,11 +106,13 @@ export default function Page() {
 
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3632.8105894516802!2d42.70679547589608!3d42.27042390076394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x405c8d97bc0bc6d3%3A0x29f0590146f99622!2zSWRlYVJvb20g4oCiIOGDmOGDk-GDlOGDkOGDoOGDo-GDm-GDmA!5e1!3m2!1sen!2sge!4v1742385567170!5m2!1sen!2sge"
-          className="rounded-[16px] w-full h-full"
+          className="rounded-[16px] w-full h-full border-0"
+          style={{ border: 0 }}
           allowFullScreen=""
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          onLoad={() => setMapLoaded(true)} // როცა iframe ჩაიტვირთება, ლოდერი ქრება
+          onLoad={handleMapLoad}
+          title="Google Maps Location"
         />
       </div>
 
@@ -178,16 +189,16 @@ export default function Page() {
           </div>
 
           <div className="space-y-6">
-            <div className="flex items-center gap-4">
+            <div className="flex ml-[-4px] items-center gap-4">
               <Image src={location} alt="location svg" />
               <p className="text-sm text-[#282525]">კოსტავა N38, ქუთაისი</p>
             </div>
             <div className="flex items-center gap-4">
-              <Image src={phone} alt="phone svg" />
+              <Image className="" src={phone} alt="phone svg" />
               <p className="text-sm text-[#282525]">+995 551 25 13 14</p>
             </div>
             <div className="flex items-center gap-4">
-              <Image src={message} alt="message svg" />
+              <Image className="" src={message} alt="message svg" />
               <p className="text-sm text-[#282525]">idearoom@info.ge</p>
             </div>
           </div>
