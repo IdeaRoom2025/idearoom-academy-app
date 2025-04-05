@@ -4,6 +4,7 @@ import Image from "next/image";
 import arrowRight from "../../public/arrowRight.svg";
 import quotes from "../../public/quote.svg";
 import { createClient } from "@supabase/supabase-js";
+import Link from "next/link";
 
 // Initialize Supabase client (you'll need to add your env variables)
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -113,13 +114,17 @@ export default function Feedback() {
     >
       <div className="mb-8 pt-4 relative">
         <div className="absolute top-[-44px] left-0">
-          <img
-            className="w-[24px] h-[24px] object-contain"
-            src={quotes.src}
-            alt="quote"
-            width={24}
-            height={21}
-          />
+          {quotes && quotes.src ? (
+            <img
+              className="w-[24px] h-[24px] object-contain"
+              src={quotes.src}
+              alt="quote"
+              width={24}
+              height={21}
+            />
+          ) : (
+            <div className="w-[24px] h-[24px]"></div>
+          )}
         </div>
         <p className="text-[#7B7D7E] font-normal text-sm leading-relaxed">
           {testimonial.text}
@@ -136,7 +141,7 @@ export default function Feedback() {
               />
             ) : (
               // Fallback avatar if no image is provided
-              <div className="w-full h-full bg-primary-100 flex items-center justify-center text-primary-500 font-bold text-xl">
+              <div className="w-16 h-16 bg-primary-100 flex items-center justify-center text-primary-500 font-bold text-xl rounded-full">
                 {testimonial.fullName?.charAt(0) || "U"}
               </div>
             )}
@@ -145,6 +150,7 @@ export default function Feedback() {
             <p className="font-semibold caps-text text-secondary-500 text-sm">
               {testimonial.fullName}
             </p>
+
             <span className="text-[#706A6A] caps-text text-sm">
               {testimonial.course}
             </span>
@@ -153,17 +159,23 @@ export default function Feedback() {
         <div className="w-full h-[1px] bg-[#eeeeee] mt-6 my-5"></div>
         <div className="flex items-center cursor-pointer group mt-5">
           <div className="flex items-center justify-center mr-3">
-            <img
-              className="bg-primary-500 transition-colors duration-300 hover:bg-primary-600 rounded-full max-md:w-[30px] max-sm:w-[45px] w-[32px] p-1"
-              src={arrowRight.src}
-              alt="arrow right"
-              width={30}
-              height={30}
-            />
+            {arrowRight && arrowRight.src ? (
+              <img
+                className="bg-primary-500 transition-colors duration-300 hover:bg-primary-600 rounded-full max-md:w-[30px] max-sm:w-[45px] w-[32px] p-1"
+                src={arrowRight.src}
+                alt="arrow right"
+                width={30}
+                height={30}
+              />
+            ) : (
+              <div className="bg-primary-500 transition-colors duration-300 hover:bg-primary-600 rounded-full max-md:w-[30px] max-sm:w-[45px] w-[32px] h-[32px] p-1"></div>
+            )}
           </div>
-          <p className="text-primary-500 mt-[6px] caps-text font-bold leading-5 group-hover:text-primary-600 transition-colors duration-300">
-            {testimonial.course}
-          </p>
+          <Link href={testimonial.courseLink || "#"}>
+            <p className="text-primary-500 mt-[6px] caps-text font-bold leading-5 group-hover:text-primary-600 transition-colors duration-300">
+              {testimonial.course}
+            </p>
+          </Link>
         </div>
       </div>
     </div>
