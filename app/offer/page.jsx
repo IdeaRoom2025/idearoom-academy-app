@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button } from "../../components/ui/button";
 import Link from "next/link";
 import { apiDoubleCourse } from "../services/apiDoubleCourse";
 import HeadTopCourse from "../courses/_components/HeadTopCourse";
@@ -94,7 +93,7 @@ export default function Page() {
                 </span>
               </div>
               <Link href={`/offer/${course.id}`}>
-                <button className="w-full hover:translate-y-[-3px] duration-300 transition-all rounded-[4px] bg-primary-500 text-[#fff] hover:text-secondary-900 hover:bg-[#FDB927] py-2 pt-3 text-sm caps-text font-bold px-5">
+                <button className="w-full hover:translate-y-[-3px] duration-300 transition-all rounded-[12px] bg-primary-500 text-[#fff] hover:text-secondary-900 hover:bg-[#FDB927] py-2 pt-3 text-sm caps-text font-bold px-5">
                   დეტალურად
                 </button>
               </Link>

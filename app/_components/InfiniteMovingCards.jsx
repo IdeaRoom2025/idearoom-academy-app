@@ -8,9 +8,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../../components/ui/dialog";
-import profilePic from "../../public/logo.svg";
+import cancel from "../../public/whiteCancel.svg";
 import Headline from "./Headline";
 import { getAllLecturers } from "../services/apiLecturer";
+import Image from "next/image";
 
 export const InfiniteMovingCards = ({
   direction = "left",
@@ -136,7 +137,7 @@ export const InfiniteMovingCards = ({
   }
 
   if (lecturers.length === 0) {
-    return <div className="text-center p-8">No lecturers found</div>;
+    return <div className="text-center p-8">ვერ მოიძებნა ლექტორები</div>;
   }
 
   return (
@@ -178,7 +179,7 @@ export const InfiniteMovingCards = ({
         <ul
           ref={scrollerRef}
           className={cn(
-            "flex w-max min-w-full shrink-0 flex-nowrap gap-4 py-6",
+            "flex w-max min-w-full shrink-0 flex-nowrap gap-4 ",
             start && "animate-scroll",
             pauseOnHover && "hover:[animation-play-state:paused]",
             "will-change-transform"
@@ -197,64 +198,55 @@ export const InfiniteMovingCards = ({
         >
           {lecturers.map((lecturer, idx) => (
             <li
-              className="relative items-center flex h-[230px] w-[350px] max-w-full shrink-0 rounded-[30px] bg-white hover:-translate-y-[4px] duration-300 transition-all border border-secondary-50 px-7 py-6 cursor-pointer md:w-[450px]"
+              className="relative justify-center text-center items-center w-[336px] flex h-[400px] max-w-full rounded-[16px] shrink-0 bg-white duration-300 transition-all  cursor-pointer"
               key={lecturer.fullName + idx}
               data-index={idx}
               onClick={(e) => handleCardClick(lecturer, e)}
             >
-              <blockquote>
-                <div className="mb-3 flex items-center">
-                  <img
-                    src={lecturer.lecturer_image || profilePic.src}
-                    alt={lecturer.fullName}
-                    className="h-10 w-10 rounded-full object-cover"
-                  />
-                  <div className="ml-3">
-                    <p className="font-[700] caps-text text-secondary-500">
-                      {lecturer.fullName}
-                    </p>
-                    <p className="text-xs caps-text text-secondary-500">
-                      {lecturer.field}
-                    </p>
-                  </div>
+              <div className="flex relative justify-center items-center">
+                <img
+                  className="w-[312px] rounded-[12px] h-[376px] object-cover"
+                  src={lecturer.lecturer_image}
+                  alt="lecturer_image"
+                />
+                <div className="bg-[#8471D9E5] w-[296px] h-[103px] rounded-[12px] mb-[6px] flex flex-col items-center text-center absolute bottom-0 text-white">
+                  <h4 className="text-base mt-[30px] text-center justify-center items-center caps-text font-bold">
+                    {lecturer.fullName}
+                  </h4>
+                  <p className="caps-text text-sm">{lecturer.field}</p>
                 </div>
-                <p className="relative mt-7 leading-[24px] text-sm text-secondary-500 line-clamp-4">
-                  {lecturer.lecturer_text}
-                </p>
-              </blockquote>
+              </div>
             </li>
           ))}
         </ul>
       </div>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="text-secondary-500 max-h-[90vh] overflow-y-auto max-sm:max-w-[90%] max-sm:max-h-[80vh] sm:max-w-[600px] bg-white shadow-none rounded-[30px] p-6 sm:p-10 max-sm:ml-0 max-sm:mr-auto">
+        <DialogContent className="text-secondary-500 max-h-[90vh] overflow-y-auto max-sm:max-w-[90%] min-w-[800px] outline-none  border-none bg-transparent shadow-none rounded-[30px]  max-sm:mr-auto">
           <DialogHeader className="max-sm:items-start">
-            <DialogTitle className="flex max-sm:text-left mb-5 sm:mb-7 items-center gap-2 max-sm:justify-start w-full">
-              <img
-                src={selectedItem?.lecturer_image || profilePic.src}
-                alt="profile-image"
-                className="w-[60px] max-sm:w-[40px] max-sm:h-[40px] h-[60px] mr-2 rounded-full object-cover flex-shrink-0"
+            <DialogTitle className="flex max-sm:text-left mb-5 sm:mb-7 items-center gap-2 max-sm:justify-start w-full"></DialogTitle>
+            <div className="relative">
+              <Image
+                onClick={() => setIsDialogOpen(!isDialogOpen)}
+                className="absolute cursor-pointer w-[35px] h-[35px] z-50 right-[2%] top-[4%]"
+                src={cancel}
+                alt="cancel-svg"
               />
-              <div className="flex-grow min-w-0 w-full">
-                <span className="caps-text max-sm:text-[15px] text-primary-500 block whitespace-normal break-words overflow-visible">
-                  {selectedItem?.fullName}
-                </span>
-                <span className="block mt-1 caps-text text-sm text-secondary-500 whitespace-normal break-words overflow-visible">
-                  {selectedItem?.field}
-                </span>
-              </div>
-            </DialogTitle>
-            <div className="pt-4 relative">
-              <span className="absolute -left-1 -top-2 text-4xl text-secondary-500">
-                "
-              </span>
-              <div className="px-3 max-sm:text-sm regular-text text-secondary-500 text-base leading-[24px] max-sm:text-left overflow-auto">
-                {selectedItem?.lecturer_text}
-              </div>
-              <span className="absolute -right-1 bottom-[-15px] text-4xl text-secondary-500">
-                "
-              </span>
+              {selectedItem && (
+                <video
+                  controls
+                  muted={false}
+                  autoPlay={true}
+                  playsInline
+                  className="w-full border-none outline-none rounded-[16px] relative h-full"
+                  onLoadStart={() => console.log("Video is loading")}
+                  onLoadedData={() => console.log("Video loaded successfully")}
+                  onError={(e) => console.error("Video failed to load", e)}
+                >
+                  <source src={selectedItem.lecturer_video} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              )}
             </div>
           </DialogHeader>
         </DialogContent>

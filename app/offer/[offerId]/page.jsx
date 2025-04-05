@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "../../../components/ui/button";
 import HeadTopCourse from "../../courses/_components/HeadTopCourse";
-
 import checkbox from "../../../public/checkbox.svg";
 import lightCalendar from "../../../public/calendarLight.svg";
 import tv from "../../../public/tv.svg";
@@ -13,7 +12,6 @@ import user from "../../../public/user.svg";
 import badge from "../../../public/badge.svg";
 import downArrow from "../../../public/downArrow.svg";
 
-// Accordion Component
 function AccordionItem({ title, content }) {
   useEffect(() => {
     document.title = "idearoom | შეთავაზება";
@@ -354,13 +352,9 @@ export default function OfferPage({ params }) {
             <h3 className="text-base lg:text-lg font-bold caps-text text-secondary-500 mb-4">
               კურსის დეტალები
             </h3>
-            <div className="ml-0 lg:ml-[10px] xl:ml-[15px]">
+            <div>
               <div className="flex my-1 items-center gap-3 caps-text">
-                <Image
-                  src={lightCalendar}
-                  alt="calendar icon"
-                  className="min-w-[20px]"
-                />
+                <Image src={lightCalendar} alt="calendar icon" />
                 <p className="mt-2 text-secondary-500 font-[500] text-sm lg:text-[15px]">
                   დაწყების თარიღი:{" "}
                   <span className="text-[#88919C] ml-1">
@@ -369,11 +363,7 @@ export default function OfferPage({ params }) {
                 </p>
               </div>
               <div className="flex my-1 items-center gap-3 caps-text">
-                <Image
-                  src={tv}
-                  alt="tv icon"
-                  className="ml-[-2.2px] min-w-[20px]"
-                />
+                <Image src={tv} alt="tv icon" />
                 <p className="mt-2 text-secondary-500 font-[500] text-sm lg:text-base">
                   კურსის ხანგრძლივობა:{" "}
                   <span className="text-[#88919C] ml-1">
@@ -383,11 +373,7 @@ export default function OfferPage({ params }) {
                 </p>
               </div>
               <div className="flex my-1 items-center gap-3 caps-text">
-                <Image
-                  src={timer}
-                  alt="timer icon"
-                  className="ml-[-2.2px] min-w-[20px]"
-                />
+                <Image src={timer} alt="timer icon" />
                 <p className="mt-2 text-secondary-500 font-[500] text-sm lg:text-base">
                   შეხვედრის ხანგრძლივობა:{" "}
                   <span className="text-[#88919C] ml-1">
@@ -396,11 +382,7 @@ export default function OfferPage({ params }) {
                 </p>
               </div>
               <div className="flex my-1 items-center gap-3 caps-text">
-                <Image
-                  src={user}
-                  alt="user icon"
-                  className="ml-[-1px] min-w-[20px]"
-                />
+                <Image src={user} alt="user icon" />
                 <p className="mt-2 text-secondary-500 font-[500] text-sm lg:text-base">
                   სტუდენტები ჯგუფში:{" "}
                   <span className="text-[#88919C] ml-1">
@@ -409,7 +391,7 @@ export default function OfferPage({ params }) {
                 </p>
               </div>
               <div className="flex my-1 items-center gap-3 caps-text">
-                <Image src={badge} alt="badge icon" className="min-w-[19px]" />
+                <Image src={badge} alt="badge icon" />
                 <p className="mt-2 text-secondary-500 font-[500] text-sm lg:text-base">
                   სერთიფიკატი და სტაჟირება
                 </p>

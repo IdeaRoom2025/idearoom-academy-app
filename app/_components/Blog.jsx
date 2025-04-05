@@ -31,15 +31,15 @@ export default function Blog() {
   }, []);
 
   return (
-    <section className="relative mt-12 sm:mt-16 md:mt-20 lg:mt-[96px]">
+    <section className="relative mt-12 sm:mt-16 md:mt-20 lg:mt-[72px]">
       <Headline text="ბლოგი" />
-      <div className="relative container mx-auto max-sm:max-w-[85%] mt-8 sm:mt-10 md:mt-12 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="relative container mx-auto max-sm:max-w-[85%] mt-8 sm:mt-10 md:mt-[36px] grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {isLoading && <BlogLoader />}
         {!isLoading &&
           blog.map((singleBlog, blogIndex) => (
             <div
               key={blogIndex}
-              className="bg-white hover:translate-y-[-3px] duration-300 cursor-pointer transition-all p-4 sm:p-5 rounded-[20px]"
+              className="bg-white py-4 h-[556px] px-5 relative cursor-pointer  rounded-[20px]"
             >
               <img
                 className="w-full rounded-[12px] h-[250px] xl:h-[284px] object-cover"
@@ -50,12 +50,12 @@ export default function Blog() {
                 <h4 className="caps-text text-[#282525] font-bold text-base">
                   {singleBlog.title}
                 </h4>
-                <p className="text-sm leading-[1.65] font-regular mt-3 sm:mt-4 mb-6 sm:mb-8 text-secondary-500">
+                <p className="text-sm leading-[1.65] font-regular mt-3 sm:mt-4  text-secondary-500">
                   {singleBlog.text.split(" ").slice(0, 15).join(" ") + "..."}
                 </p>
-                <div className="flex justify-end">
+                <div className="flex relative mt-[36px] mb-[72px]  justify-end">
                   <Link href={`blog/${singleBlog.id}`}>
-                    <Button className="w-full sm:w-[152px] text-sm rounded-[12px] h-[48px]">
+                    <Button className="w-full pt-3 sm:w-[152px] text-sm rounded-[12px] h-[48px]">
                       გაიგე მეტი
                     </Button>
                   </Link>

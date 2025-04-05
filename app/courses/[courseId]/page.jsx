@@ -62,16 +62,16 @@ function AccordionItem({ title, content }) {
 // Tab content components for cleaner code organization
 function DetailsTab({ course }) {
   return (
-    <div className="bg-white rounded-[20px] px-4 py-6 lg:px-6 lg:py-8 mb-8 lg:mb-0">
+    <div className="bg-white overflow-x-hidden  rounded-[20px] px-4 py-6 lg:px-6 lg:py-8 mb-8 lg:mb-0">
       <p className="text-lg lg:text-xl leading-[24px] font-bold caps-text text-secondary-500 mb-5">
         კურსის აღწერა
       </p>
-      <div>
+      <div className="overflow-x-hidden">
         {Array.isArray(course.course_details) &&
           course.course_details.map((detail, i) => (
             <div
               key={i}
-              className="flex items-start gap-3 lg:gap-4 text-sm mb-6 leading-[24px] text-secondary-500"
+              className="flex overflow-x-hidden items-start gap-3 lg:gap-4 text-sm mb-6 leading-[24px] text-secondary-500"
             >
               <Image
                 src={checkbox}
@@ -163,8 +163,8 @@ export async function generateMetadata({ params }) {
 
   if (!course) {
     return {
-      title: "Course Not Found",
-      description: "The requested course could not be found",
+      title: "კურსი არ მოიძებნა !",
+      description: "მოთხოვნილი კურსი ვერ მოიძებნა",
     };
   }
 
@@ -174,6 +174,10 @@ export async function generateMetadata({ params }) {
       Array.isArray(course.course_details) && course.course_details.length > 0
         ? course.course_details[0]
         : "Course details",
+    robots: {
+      follow: true,
+      index: true,
+    },
   };
 }
 
@@ -260,10 +264,11 @@ export default async function CoursePage({ params, searchParams }) {
             <span className="font-bold">ლექტორი:</span> {courseData.lecturer}
           </p>
 
-          {/* ტაბების მენიუ - Using link hrefs with search params */}
+          {/* ტაბების მენიუ - Using link hrefs with search params and scroll={false} */}
           <div className="flex my-5 lg:my-7 mb-8 lg:mb-12 text-sm items-center gap-3 caps-text overflow-x-auto whitespace-nowrap">
             <Link
               href={`/courses/${courseData.id}?tab=details`}
+              scroll={false}
               className={`${
                 activeTab === "details"
                   ? "bg-primary-500 text-white"
@@ -274,6 +279,7 @@ export default async function CoursePage({ params, searchParams }) {
             </Link>
             <Link
               href={`/courses/${courseData.id}?tab=syllabus`}
+              scroll={false}
               className={`${
                 activeTab === "syllabus"
                   ? "bg-primary-500 text-white"
@@ -284,6 +290,7 @@ export default async function CoursePage({ params, searchParams }) {
             </Link>
             <Link
               href={`/courses/${courseData.id}?tab=lecturer`}
+              scroll={false}
               className={`${
                 activeTab === "lecturer"
                   ? "bg-primary-500 text-white"
@@ -313,13 +320,9 @@ export default async function CoursePage({ params, searchParams }) {
             <h3 className="text-base lg:text-lg font-bold caps-text text-secondary-500 mb-4">
               კურსის დეტალები
             </h3>
-            <div className="ml-0 lg:ml-[10px] xl:ml-[15px]">
+            <div>
               <div className="flex my-1 items-center gap-3 caps-text">
-                <Image
-                  src={lightCalendar}
-                  alt="calendar icon"
-                  className="min-w-[20px]"
-                />
+                <Image src={lightCalendar} alt="calendar icon" />
                 <p className="mt-2 text-secondary-500 font-[500] text-sm lg:text-[15px]">
                   დაწყების თარიღი:{" "}
                   <span className="text-[#88919C] ml-1">
@@ -328,11 +331,7 @@ export default async function CoursePage({ params, searchParams }) {
                 </p>
               </div>
               <div className="flex my-1 items-center gap-3 caps-text">
-                <Image
-                  src={tv}
-                  alt="tv icon"
-                  className="ml-[-2.2px] min-w-[20px]"
-                />
+                <Image src={tv} alt="tv icon" />
                 <p className="mt-2 text-secondary-500 font-[500] text-sm lg:text-base">
                   კურსის ხანგრძლივობა:{" "}
                   <span className="text-[#88919C] ml-1">
@@ -341,11 +340,7 @@ export default async function CoursePage({ params, searchParams }) {
                 </p>
               </div>
               <div className="flex my-1 items-center gap-3 caps-text">
-                <Image
-                  src={timer}
-                  alt="timer icon"
-                  className="ml-[-2.2px] min-w-[20px]"
-                />
+                <Image src={timer} alt="timer icon" />
                 <p className="mt-2 text-secondary-500 font-[500] text-sm lg:text-base">
                   შეხვედრის ხანგრძლივობა:{" "}
                   <span className="text-[#88919C] ml-1">
@@ -354,11 +349,7 @@ export default async function CoursePage({ params, searchParams }) {
                 </p>
               </div>
               <div className="flex my-1 items-center gap-3 caps-text">
-                <Image
-                  src={user}
-                  alt="user icon"
-                  className="ml-[-1px] min-w-[20px]"
-                />
+                <Image src={user} alt="user icon" />
                 <p className="mt-2 text-secondary-500 font-[500] text-sm lg:text-base">
                   სტუდენტი ჯგუფში:{" "}
                   <span className="text-[#88919C] ml-1">
@@ -367,7 +358,7 @@ export default async function CoursePage({ params, searchParams }) {
                 </p>
               </div>
               <div className="flex my-1 items-center gap-3 caps-text">
-                <Image src={badge} alt="badge icon" className="min-w-[19px]" />
+                <Image src={badge} alt="badge icon" />
                 <p className="mt-2 text-secondary-500 font-[500] text-sm lg:text-base">
                   სერთიფიკატი და სტაჟირება
                 </p>

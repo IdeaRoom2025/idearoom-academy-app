@@ -28,7 +28,13 @@
   border-left-color: #8471d9;
   animation: spin 1s linear infinite;
 }
-
+option:hover {
+  background-color: #e4e0f5 !important;
+  color: #282525 !important;
+}
+.shadow-review {
+  box-shadow: 30px 1px 1px -3px rgba(0, 0, 0, 0.05);
+}
 @keyframes spin {
   0% {
     transform: rotate(0deg);

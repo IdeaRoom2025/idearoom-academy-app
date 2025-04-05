@@ -7,9 +7,35 @@ import calendar from "../../../public/calendar.svg";
 import { getBlogs } from "../../services/apiBlogs";
 import HeadTop from "../_components/HeadTop";
 
-export const metadata = {
-  title: "ბლოგი",
-};
+// Fixed signature and ensuring static generation
+export async function generateMetadata({ params }) {
+  const blogId = params.blogId;
+  const blogs = await getBlogs();
+  const blog = blogs.find((item) => item.id === parseInt(blogId));
+
+  if (!blog) {
+    return {
+      title: "ბლოგი ვერ მოიძებნა",
+      description: "მოთხოვნილი ბლოგი არ არსებობს ან წაშლილია",
+    };
+  }
+
+  return {
+    title: `${blog.title}`,
+    description: blog.text,
+    openGraph: {
+      images: [
+        {
+          url: blog.image,
+        },
+      ],
+    },
+    robots: {
+      follow: false,
+      index: true,
+    },
+  };
+}
 
 function formatDateGeorgian(dateString) {
   const date = new Date(dateString);
@@ -32,6 +58,10 @@ function formatDateGeorgian(dateString) {
   const year = date.getFullYear();
   return `${month} ${day}, ${year}`;
 }
+
+// Force static rendering
+export const dynamic = "force-static";
+export const revalidate = false;
 
 export default async function BlogPage({ params }) {
   const blogs = await getBlogs();

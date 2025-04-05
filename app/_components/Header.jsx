@@ -109,6 +109,14 @@ export default function Header() {
     }, 0);
   };
 
+  // Function to handle terms link click - close the modal
+  const handleTermsLinkClick = (e) => {
+    e.preventDefault(); // Prevent default link behavior
+    setIsRegistrationOpen(false); // Close the registration modal
+    // Navigate to privacy page programmatically
+    window.location.href = "/privacy";
+  };
+
   // Registration form component
   const RegistrationForm = () => {
     const handleCancel = () => {
@@ -187,8 +195,28 @@ export default function Header() {
       alert("წესებისა და პირობების გვერდი ჯერ ხელმისაწვდომი არ არის");
     };
 
+    // Custom styles for select dropdown options
+    const selectStyles = `
+      select option:hover, select option:focus {
+        background-color: #E4E0F5 !important;
+        color: #282525 !important;
+      }
+      
+      select option:checked {
+        background-color: #E4E0F5 !important;
+        color: #282525 !important;
+      }
+      
+      select option {
+        padding: 8px;
+      }
+    `;
+
     return (
-      <div className="flex relative p-2 lg:p-4 w-full caps-text rounded-[8px] lg:rounded-[20px] flex-col lg:flex-row h-full lg:max-h-[650px]">
+      <div className="flex relative p-2 lg:p-4 w-full caps-text rounded-[8px] lg:rounded-[20px] lg:gap-[16px] flex-col lg:flex-row h-full lg:max-h-[650px]">
+        <style jsx global>
+          {selectStyles}
+        </style>
         <div className="hidden lg:flex bg-[#EAF1FA] h-[auto] w-full lg:w-[50%] items-center justify-center rounded-[20px]">
           <img
             src={signUpPic.src}
@@ -213,7 +241,7 @@ export default function Header() {
               <div className="mt-2 h-1 w-20 lg:w-24 rounded-[4px] bg-primary-500"></div>
             </div>
             <Image
-              className="right-[10px] max-lg:mt-[40px] lg:right-[15px] cursor-pointer w-[30px] h-[30px] lg:w-[36px] lg:h-[36px] z-10"
+              className="lg:absolute lg:top-[-62%] right-[10px] max-lg:mt-[40px] lg:right-[-6%] cursor-pointer w-[30px] h-[30px] lg:w-[36px] lg:h-[36px] z-10"
               src={cancel}
               onClick={handleCancel}
               alt="cancel svg"
@@ -387,7 +415,7 @@ export default function Header() {
                   ვეთანხმები{" "}
                   <span
                     className="text-[#5387C9] cursor-pointer"
-                    onClick={handleTermsClick}
+                    onClick={handleTermsLinkClick}
                   >
                     წესებს და პირობებს
                   </span>
@@ -496,7 +524,9 @@ export default function Header() {
               onOpenChange={safelySetRegistrationOpen}
             >
               <AlertDialogTrigger asChild>
-                <Button className="w-[156px] h-[48px]">რეგისტრაცია</Button>
+                <Button className="w-[156px] h-[48px] pt-[11px]">
+                  რეგისტრაცია
+                </Button>
               </AlertDialogTrigger>
               <AlertDialogContent
                 className={`p-0 overflow-hidden ${

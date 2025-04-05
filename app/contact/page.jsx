@@ -174,7 +174,7 @@ export default function Page() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="bg-primary-500 text-white py-3 px-8 rounded-lg hover:bg-[#6f59d9] transition duration-300 disabled:opacity-70"
+              className="bg-primary-500 caps-text pt-[17px] text-white py-3 px-8 rounded-lg hover:bg-[#6f59d9] transition duration-300 disabled:opacity-70"
             >
               {isSubmitting ? "იგზავნება..." : "გაგზავნა"}
             </button>

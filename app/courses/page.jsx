@@ -35,7 +35,7 @@ export default function page() {
           .reverse()
           .map((course) => (
             <Link href={`/courses/${course.id}`} key={course.id}>
-              <div className="bg-white hover:border hover:border-secondary-100 duration-300 transition-all hover:translate-y-[-5px] card-shadow rounded-[16px] flex flex-col h-full">
+              <div className="bg-white  card-shadow rounded-[16px] flex flex-col h-full">
                 <div className="relative w-full pt-[65%] overflow-hidden rounded-t-[16px]">
                   <img
                     className="object-cover absolute top-0 left-0 w-full h-full rounded-tl-[16px] rounded-tr-[16px]"

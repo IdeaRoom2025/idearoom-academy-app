@@ -21,7 +21,7 @@ export default function CourseItem() {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5 mt-8 md:mt-12 mb-5">
       {courses.map((course) => (
         <Link href={`courses/${course.id}`} key={course.id}>
-          <div className="bg-white group relative hover:-translate-y-[3px] duration-300 transition-all card-shadow rounded-[16px] flex flex-col h-full">
+          <div className="bg-white group relative card-shadow rounded-[16px] flex flex-col h-full">
             <div className="relative w-full pt-[65%] overflow-hidden rounded-t-[16px]">
               <img
                 className="object-cover absolute top-0 left-0 w-full h-full rounded-tl-[16px] rounded-tr-[16px]"
