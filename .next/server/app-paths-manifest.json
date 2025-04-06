@@ -1,0 +1,17 @@
+{
+  "/api/offer/route": "app/api/offer/route.js",
+  "/api/offers/route": "app/api/offers/route.js",
+  "/icon.svg/route": "app/icon.svg/route.js",
+  "/blog/page": "app/blog/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/courses/page": "app/courses/page.js",
+  "/page": "app/page.js",
+  "/error/page": "app/error/page.js",
+  "/offer/[offerId]/page": "app/offer/[offerId]/page.js",
+  "/offer/page": "app/offer/page.js",
+  "/blog/[blogId]/page": "app/blog/[blogId]/page.js",
+  "/about/page": "app/about/page.js",
+  "/courses/[courseId]/page": "app/courses/[courseId]/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/privacy/page": "app/privacy/page.js"
+}
