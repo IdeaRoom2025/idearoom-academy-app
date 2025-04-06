@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://C%3A/Users/Lenovo/Documents/idearoom/app/loading.jsx"],"sourcesContent":["import React from \"react\";\r\n\r\nexport default function Loading() {\r\n  return (\r\n    <section className=\"relative z-50 bg-white w-full h-screen\">\r\n      <div className=\"absolute spinner top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50\"></div>\r\n    </section>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;AAAA;;;AAEe,SAAS;IACtB,qBACE,8OAAC;QAAQ,WAAU;kBACjB,cAAA,8OAAC;YAAI,WAAU;;;;;;;;;;;AAGrB"}},
+    {"offset": {"line": 30, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

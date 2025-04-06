@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://C%3A/Users/Lenovo/Documents/idearoom/app/not-found.jsx"],"sourcesContent":["import React from \"react\";\r\n\r\nexport const metadata = {\r\n  title: \"404 გვერდი ვერ მოიძებნა\",\r\n};\r\n\r\nexport default function notFound() {\r\n  return (\r\n    <section className=\"container max-md:max-w-[80%] text-center items-center justify-center mt-[200px]\">\r\n      <h2 className=\"text-[36px] lg:text-[48px] xl:text-[64px]  text-primary-500 font-bold\">\r\n        404\r\n      </h2>\r\n      <p className=\"max-sm:text-base max-lg:text-lg caps-text font-bold text-secondary-500 text-xl mt-4\">\r\n        უპს! გვერდი რომელსაც ეძებ, არ არსებობს!\r\n      </p>\r\n    </section>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;;AAAA;;;AAEO,MAAM,WAAW;IACtB,OAAO;AACT;AAEe,SAAS;IACtB,qBACE,8OAAC;QAAQ,WAAU;;0BACjB,8OAAC;gBAAG,WAAU;0BAAwE;;;;;;0BAGtF,8OAAC;gBAAE,WAAU;0BAAsF;;;;;;;;;;;;AAKzG"}},
+    {"offset": {"line": 45, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

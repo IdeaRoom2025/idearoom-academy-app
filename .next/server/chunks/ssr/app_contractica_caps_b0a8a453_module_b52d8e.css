@@ -1,0 +1,67 @@
+/* [project]/app/contractica_caps_b0a8a453.module.css [app-client] (css) */
+@font-face {
+  font-family: contractica_caps;
+  src: url("/_next/static/media/TBCContracticaCAPS_Light-s.p.0e68af37.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: contractica_caps;
+  src: url("/_next/static/media/TBCContracticaCAPS_Regular-s.p.83f28492.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: contractica_caps;
+  src: url("/_next/static/media/TBCContracticaCAPS_Book-s.p.ab12ffa8.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 450;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: contractica_caps;
+  src: url("/_next/static/media/TBCContracticaCAPS_Medium-s.p.c2df1d31.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: contractica_caps;
+  src: url("/_next/static/media/TBCContracticaCAPS_Bold-s.p.631f4a02.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: contractica_caps;
+  src: url("/_next/static/media/TBCContracticaCAPS_Black-s.p.71172a0d.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: contractica_caps Fallback;
+  src: local(Arial);
+  ascent-override: 84.42%;
+  descent-override: 28.14%;
+  line-gap-override: 0.0%;
+  size-adjust: 106.6%;
+}
+
+.contractica_caps_b0a8a453-module__e2_gwW__className {
+  font-family: contractica_caps, contractica_caps Fallback;
+}
+
+.contractica_caps_b0a8a453-module__e2_gwW__variable {
+  --font-contractica-caps: "contractica_caps", "contractica_caps Fallback";
+}
+
+/*# sourceMappingURL=app_contractica_caps_b0a8a453_module_b52d8e.css.map*/

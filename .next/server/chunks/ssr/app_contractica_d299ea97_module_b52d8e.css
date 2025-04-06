@@ -1,0 +1,67 @@
+/* [project]/app/contractica_d299ea97.module.css [app-client] (css) */
+@font-face {
+  font-family: contractica;
+  src: url("/_next/static/media/TBCContractica_Light-s.p.4fb0741e.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: contractica;
+  src: url("/_next/static/media/TBCContractica_Regular-s.p.c13af657.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: contractica;
+  src: url("/_next/static/media/TBCContractica_Book-s.p.850c2074.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 450;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: contractica;
+  src: url("/_next/static/media/TBCContractica_Medium-s.p.2cb2b70f.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: contractica;
+  src: url("/_next/static/media/TBCContractica_Bold-s.p.65270d05.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: contractica;
+  src: url("/_next/static/media/TBCContractica_Black-s.p.b169623d.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: contractica Fallback;
+  src: local(Arial);
+  ascent-override: 84.42%;
+  descent-override: 28.14%;
+  line-gap-override: 0.0%;
+  size-adjust: 106.6%;
+}
+
+.contractica_d299ea97-module__ZoiW5a__className {
+  font-family: contractica, contractica Fallback;
+}
+
+.contractica_d299ea97-module__ZoiW5a__variable {
+  --font-contractica: "contractica", "contractica Fallback";
+}
+
+/*# sourceMappingURL=app_contractica_d299ea97_module_b52d8e.css.map*/

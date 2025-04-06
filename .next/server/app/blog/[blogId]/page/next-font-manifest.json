@@ -1,0 +1,21 @@
+{
+  "pages": {},
+  "app": {
+    "[project]/app/blog/[blogId]/page": [
+      "static/media/TBCContracticaCAPS_Light-s.p.0e68af37.ttf",
+      "static/media/TBCContracticaCAPS_Regular-s.p.83f28492.ttf",
+      "static/media/TBCContracticaCAPS_Book-s.p.ab12ffa8.ttf",
+      "static/media/TBCContracticaCAPS_Medium-s.p.c2df1d31.ttf",
+      "static/media/TBCContracticaCAPS_Bold-s.p.631f4a02.ttf",
+      "static/media/TBCContracticaCAPS_Black-s.p.71172a0d.ttf",
+      "static/media/TBCContractica_Light-s.p.4fb0741e.ttf",
+      "static/media/TBCContractica_Regular-s.p.c13af657.ttf",
+      "static/media/TBCContractica_Book-s.p.850c2074.ttf",
+      "static/media/TBCContractica_Medium-s.p.2cb2b70f.ttf",
+      "static/media/TBCContractica_Bold-s.p.65270d05.ttf",
+      "static/media/TBCContractica_Black-s.p.b169623d.ttf"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pagesUsingSizeAdjust": false
+}
