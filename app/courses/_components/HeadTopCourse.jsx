@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function HeadTopCourse({ children, isCoursesPage = true }) {
   return (
-    <div className="flex max-sm:flex-col max-sm:items-center max-sm:text-center items-center gap-3 my-5 sm:my-7">
+    <div className="flex flex-wrap gap-3 items-center sm:my-7">
       <Link href="/">
         <Image
           className="w-[14px] h-[12px] sm:w-[16px] sm:h-[14px]"
@@ -14,11 +14,7 @@ export default function HeadTopCourse({ children, isCoursesPage = true }) {
           alt="homeIcon-svg"
         />
       </Link>
-      <Image
-        className="mt-[2px]  max-sm:rotate-90"
-        src={rightArrow}
-        alt="rightArrow-svg"
-      />
+      <Image className="mt-[2px]" src={rightArrow} alt="rightArrow-svg" />
 
       {isCoursesPage ? (
         <p className="caps-text text-xs sm:text-sm font-regular text-[#6A737D] mt-[5px]">
@@ -35,7 +31,7 @@ export default function HeadTopCourse({ children, isCoursesPage = true }) {
           {children && (
             <>
               <Image
-                className="mt-[2px] max-sm:rotate-90"
+                className="mt-[2px]"
                 src={rightArrow}
                 alt="rightArrow-svg"
               />

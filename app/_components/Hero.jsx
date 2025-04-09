@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import arrowRight from "../../public/arrowRight.svg";
 import sliderBg from "../../public/sliderBg.png";
+import rightSlider from "../../public/rightSlider.svg";
+import leftSlider from "../../public/leftSlider.svg";
 import { Button } from "../../components/ui/button";
 import { createClient } from "@supabase/supabase-js";
 
@@ -57,11 +59,20 @@ export default function Hero() {
   }, []);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    if (slides.length > 0) {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    if (slides.length > 0) {
+      setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    }
+  };
+
+  // Simplified function to handle dot navigation
+  const handleDotClick = (index) => {
+    setCurrentSlide(index);
   };
 
   const handleSwipe = () => {
@@ -87,6 +98,7 @@ export default function Hero() {
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
+  // Re-add the automatic slider functionality
   useEffect(() => {
     if (slides.length === 0) return;
 
@@ -122,7 +134,7 @@ export default function Hero() {
   }
 
   return (
-    <main className="relative max-lg:bg-secondary-50 max-lg:rounded-[20px] max-lg:px-5 max-lg:py-10 max-sm:py-5  max-lg:max-w-[95%] container mt-[128px] ">
+    <main className="relative max-lg:bg-secondary-50 max-lg:rounded-[20px] max-lg:px-5 max-lg:py-10 max-sm:py-5 max-lg:max-w-[95%] container mt-[128px] ">
       <div className="absolute max-lg:hidden block inset-0 -z-10">
         <img src={sliderBg.src} alt="Background" />
       </div>
@@ -140,13 +152,39 @@ export default function Hero() {
             }
           : {})}
       >
+        {/* Left Arrow Button */}
+        <button
+          onClick={prevSlide}
+          className="absolute max-lg:hidden max-xl:left-4 left-7 top-[55%] -translate-y-1/2 z-10 bg-[#EFF2F580] hover:bg-white/80 rounded-full transition-all duration-300 max-sm:hidden"
+          aria-label="Previous slide"
+        >
+          <Image
+            className="max-xl:w-[36px] max-xl:h-[36px]"
+            src={leftSlider}
+            alt="left-slider svg"
+          />
+        </button>
+
+        {/* Right Arrow Button */}
+        <button
+          onClick={nextSlide}
+          className="absolute right-7 max-xl:right-4 max-lg:hidden top-[55%] -translate-y-1/2 z-10 bg-[#EFF2F580] hover:bg-white/80 rounded-full transition-all duration-300 max-sm:hidden"
+          aria-label="Next slide"
+        >
+          <Image
+            className="max-xl:w-[36px] max-xl:h-[36px]"
+            src={rightSlider}
+            alt="right-slider svg"
+          />
+        </button>
+
         <div
           className="flex transition-transform duration-500 ease-in-out"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
           {slides.map((slide, index) => (
             <div key={index} className="w-full flex-shrink-0">
-              <div className="grid max-xl:pt-[50px] pt-[70px] max-sm:pt-[50px] md:px-[40px] grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-[32px] xl:gap-[64px] justify-between items-center">
+              <div className="grid max-xl:pt-[50px] pt-[85px] max-sm:pt-[50px] md:px-[70px] xl:px-[100px] grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-[32px] xl:gap-[64px] justify-between items-center">
                 <div className="left order-2 text-secondary-800 lg:text-white max-sm:ml-2 lg:order-1">
                   <h1 className="text-2xl sm:text-[30px] md:text-[32px] lg:text-[30px] xl:text-[39px] max-sm:mt-6 max-lg:mt-9 max-sm:mb-[10px] max-sm:text-[22px] mb-[24px] caps-text font-bold">
                     {slide.title}
@@ -155,7 +193,7 @@ export default function Hero() {
                     {slide.description}
                   </p>
                   <Button
-                    className="caps-text max-sm:mb-5 max-sm:mt-8 flex items-center gap-3 sm:gap-2 pt-3 h-[48px] mt-4 sm:mt-6 md:mt-8 lg:mt-9 text-sm sm:text-[15px]"
+                    className="caps-text max-sm:mb-5 md:h-[48px] max-xl:h-[45px] max-sm:mt-8 flex items-center gap-3 sm:gap-2 pt-3 h-[48px] mt-4 sm:mt-6 md:mt-8 lg:mt-9 text-sm sm:text-[15px]"
                     onClick={() =>
                       (window.location.href = slide.buttonLink || "#")
                     }
@@ -189,16 +227,18 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="absolute duration-300 transition-all max-lg:bottom-[-5%] max-sm:hidden bottom-[6px] left-0 right-0 flex justify-center gap-4">
+      {/* Dots navigation - improved with cursor pointer and cleaner click handling */}
+      <div className="absolute duration-300 transition-all max-lg:bottom-[-5%] max-sm:hidden bottom-[-20px] left-0 right-0 flex justify-center gap-4 z-10">
         {slides.map((_, index) => (
           <button
             key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`w-[11px] h-[11px] rounded-full ${
+            onClick={() => handleDotClick(index)}
+            className={`w-[11px] h-[11px] rounded-full cursor-pointer ${
               currentSlide === index
                 ? "bg-[#fdb927]"
-                : "border-2 border-[#fdb927] "
+                : "border-2 border-[#fdb927]"
             }`}
+            aria-label={`Go to slide ${index + 1}`}
           />
         ))}
       </div>

@@ -1,4 +1,4 @@
-// File: C:\Users\KukhianidzeRevazi\OneDrive - Majorel\Desktop\idearoom-academy-app\app\blog\[blogId]\page.jsx
+// File: C:\Users\Lenovo\Documents\idearoom\app\blog\[blogId]\page.jsx
 import * as entry from '../../../../../app/blog/[blogId]/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

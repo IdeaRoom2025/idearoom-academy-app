@@ -39,7 +39,7 @@ export default function Blog() {
           blog.map((singleBlog, blogIndex) => (
             <div
               key={blogIndex}
-              className="bg-white py-4 h-[556px] px-5 relative cursor-pointer  rounded-[20px]"
+              className="bg-white blog-shadow py-4 h-[556px] px-5 relative cursor-pointer  rounded-[20px]"
             >
               <img
                 className="w-full rounded-[12px] h-[250px] xl:h-[284px] object-cover"
@@ -65,7 +65,7 @@ export default function Blog() {
           ))}
       </div>
       <div className="flex items-center justify-center mt-4">
-        <Link href={`/blog`}>
+        <Link className="max-sm:w-[85%]" href={`/blog`}>
           <SeeAllButton buttonText="ყველას ნახვა" />
         </Link>
       </div>

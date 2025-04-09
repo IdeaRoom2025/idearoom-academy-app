@@ -35,7 +35,7 @@ export default function page() {
           .reverse()
           .map((course) => (
             <Link href={`/courses/${course.id}`} key={course.id}>
-              <div className="bg-white  card-shadow rounded-[16px] flex flex-col h-full">
+              <div className="bg-white blog-shadow rounded-[16px] flex flex-col h-full">
                 <div className="relative w-full pt-[65%] overflow-hidden rounded-t-[16px]">
                   <img
                     className="object-cover absolute top-0 left-0 w-full h-full rounded-tl-[16px] rounded-tr-[16px]"
@@ -54,7 +54,7 @@ export default function page() {
                   </p>
                   <div className="flex items-center justify-between mt-auto">
                     <div className="flex items-center flex-wrap">
-                      <p className="font-bold text-secondary-500 text-base md:text-lg bg-primary-50 py-[2px] px-4 rounded-[20px]">
+                      <p className="font-bold text-secondary-500 text-base md:text-lg bg-primary-50 pb-[2px] pt-[0px] px-4 rounded-[20px]">
                         ₾ {course.price}
                       </p>
                       <p className="font-400 text-secondary-400 text-sm line-through ml-4">

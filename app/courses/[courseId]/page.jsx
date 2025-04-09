@@ -193,7 +193,7 @@ export default async function CoursePage({ params, searchParams }) {
     return (
       <div className="container max-w-[95%] mx-auto px-4 py-10">
         <HeadTop headText="კურსის დეტალები" />
-        <div className="bg-white h-[475px] rounded-[20px] p-8">
+        <div className="bg-white mt-5 h-[475px] rounded-[20px] p-8">
           <h1 className="text-2xl font-bold">კურსი ვერ მოიძებნა</h1>
           <Link href="/courses">
             <Button className="mt-4">უკან დაბრუნება</Button>
@@ -250,7 +250,7 @@ export default async function CoursePage({ params, searchParams }) {
         {/* მარცხენა კოლონა: კურსის დეტალები და სილაბუსი - ახლა უფრო ფართო */}
         <div className="lg:col-span-7">
           <img
-            className="w-[100%] max-sm:h-auto rounded-[18px] h-[300px] md:h-[400px] lg:h-[500px] object-cover"
+            className="w-[100%] max-sm:h-auto rounded-[18px] h-[300px] md:h-[400px] mt-[20px] lg:h-[500px] object-cover"
             quality={100}
             width={804}
             height={500}
@@ -263,6 +263,73 @@ export default async function CoursePage({ params, searchParams }) {
           <p className="text-secondary-500 mt-2 text-sm caps-text">
             <span className="font-bold">ლექტორი:</span> {courseData.lecturer}
           </p>
+
+          {/* მობილურისთვის კურსის დეტალების სექცია, მხოლოდ მცირე ეკრანებზე გამოჩნდება */}
+          <div className="lg:hidden block mt-6 mb-6">
+            <div className="bg-white w-full relative px-4 py-6 rounded-[20px] mb-8">
+              <h3 className="text-base font-bold caps-text text-secondary-500 mb-4">
+                კურსის დეტალები
+              </h3>
+              <div>
+                <div className="flex my-1 items-center gap-3 caps-text">
+                  <Image src={lightCalendar} alt="calendar icon" />
+                  <p className="mt-2 text-secondary-500 font-[500] text-sm">
+                    დაწყების თარიღი:{" "}
+                    <span className="text-[#88919C] ml-1">
+                      {courseData.start_course}
+                    </span>
+                  </p>
+                </div>
+                <div className="flex my-1 items-center gap-3 caps-text">
+                  <Image src={tv} alt="tv icon" />
+                  <p className="mt-2 text-secondary-500 font-[500] text-sm">
+                    კურსის ხანგრძლივობა:{" "}
+                    <span className="text-[#88919C] ml-1">
+                      {courseData.quantity_lessons} შეხვედრა
+                    </span>
+                  </p>
+                </div>
+                <div className="flex my-1 items-center gap-3 caps-text">
+                  <Image src={timer} alt="timer icon" />
+                  <p className="mt-2 text-secondary-500 font-[500] text-sm">
+                    შეხვედრის ხანგრძლივობა:{" "}
+                    <span className="text-[#88919C] ml-1">
+                      {courseData.lesson_time} საათი
+                    </span>
+                  </p>
+                </div>
+                <div className="flex my-1 items-center gap-3 caps-text">
+                  <Image src={user} alt="user icon" />
+                  <p className="mt-2 text-secondary-500 font-[500] text-sm">
+                    სტუდენტი ჯგუფში:{" "}
+                    <span className="text-[#88919C] ml-1">
+                      {courseData.quantity_of_students}
+                    </span>
+                  </p>
+                </div>
+                <div className="flex my-1 items-center gap-3 caps-text">
+                  <Image src={badge} alt="badge icon" />
+                  <p className="mt-2 text-secondary-500 font-[500] text-sm">
+                    სერთიფიკატი და სტაჟირება
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <p className="text-base text-secondary-500 caps-text mt-6">
+                  ფასი:{" "}
+                  <span className="font-bold">{courseData.price} ლარი</span>
+                </p>
+                <p className="text-[14px] line-through font-[300] ml-4 caps-text text-red-500 mt-6">
+                  <span className="font-bold leading-[24px]">
+                    {courseData.oldprice} ლარი
+                  </span>
+                </p>
+              </div>
+              <Button className="w-full mt-4 text-[15px] pt-3 h-[48px] caps-text font-bold">
+                დარეგისტრირდი
+              </Button>
+            </div>
+          </div>
 
           {/* ტაბების მენიუ - Using link hrefs with search params and scroll={false} */}
           <div className="flex my-5 lg:my-7 mb-8 lg:mb-12 text-sm items-center gap-3 caps-text overflow-x-auto whitespace-nowrap">
@@ -311,7 +378,8 @@ export default async function CoursePage({ params, searchParams }) {
 
         {/* მარჯვენა კოლონა: კურსის სხვა დეტალები - ახლა უფრო ვიწრო */}
         <div className="lg:col-span-5">
-          <div className="bg-white w-full relative px-4 py-6 lg:px-6 lg:py-8 rounded-[20px] mb-8">
+          {/* დიდ ეკრანებზე კურსის დეტალების სექცია */}
+          <div className="bg-white w-full relative px-4 py-6 lg:px-6 lg:py-8 rounded-[20px] mb-8 max-sm:hidden">
             <img
               className="hidden xl:block absolute max-w-[95%] bottom-[85px] right-[10px]"
               src={courseData.courseIcon}

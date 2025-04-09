@@ -425,12 +425,12 @@ body {
   bottom: 0;
 }
 
-.bottom-\[10px\] {
-  bottom: 10px;
+.bottom-\[-20px\] {
+  bottom: -20px;
 }
 
-.bottom-\[6px\] {
-  bottom: 6px;
+.bottom-\[10px\] {
+  bottom: 10px;
 }
 
 .bottom-\[85px\] {
@@ -453,6 +453,10 @@ body {
   left: .5rem;
 }
 
+.left-7 {
+  left: 1.75rem;
+}
+
 .left-\[50\%\] {
   left: 50%;
 }
@@ -471,6 +475,10 @@ body {
 
 .right-4 {
   right: 1rem;
+}
+
+.right-7 {
+  right: 1.75rem;
 }
 
 .right-\[10px\] {
@@ -515,6 +523,10 @@ body {
 
 .top-\[50\%\] {
   top: 50%;
+}
+
+.top-\[55\%\] {
+  top: 55%;
 }
 
 .-z-10 {
@@ -627,6 +639,10 @@ body {
 
 .mb-8 {
   margin-bottom: 2rem;
+}
+
+.mb-\[-6px\] {
+  margin-bottom: -6px;
 }
 
 .mb-\[20px\] {
@@ -745,10 +761,6 @@ body {
   margin-top: -50px;
 }
 
-.mt-\[100px\] {
-  margin-top: 100px;
-}
-
 .mt-\[128px\] {
   margin-top: 128px;
 }
@@ -761,6 +773,10 @@ body {
   margin-top: 200px;
 }
 
+.mt-\[20px\] {
+  margin-top: 20px;
+}
+
 .mt-\[2px\] {
   margin-top: 2px;
 }
@@ -771,10 +787,6 @@ body {
 
 .mt-\[36px\] {
   margin-top: 36px;
-}
-
-.mt-\[38px\] {
-  margin-top: 38px;
 }
 
 .mt-\[3px\] {
@@ -797,12 +809,16 @@ body {
   margin-top: 6px;
 }
 
+.mt-\[72px\] {
+  margin-top: 72px;
+}
+
 .mt-\[80px\] {
   margin-top: 80px;
 }
 
-.mt-\[96px\] {
-  margin-top: 96px;
+.mt-\[90px\] {
+  margin-top: 90px;
 }
 
 .mt-auto {
@@ -1846,6 +1862,10 @@ body {
   background-color: rgb(235 240 243 / var(--tw-bg-opacity));
 }
 
+.bg-\[\#EFF2F580\] {
+  background-color: #eff2f580;
+}
+
 .bg-\[\#EFF2F5\] {
   --tw-bg-opacity: 1;
   background-color: rgb(239 242 245 / var(--tw-bg-opacity));
@@ -2187,11 +2207,6 @@ body {
   padding-bottom: 2rem;
 }
 
-.py-\[2px\] {
-  padding-top: 2px;
-  padding-bottom: 2px;
-}
-
 .py-\[5px\] {
   padding-top: 5px;
   padding-bottom: 5px;
@@ -2208,6 +2223,10 @@ body {
 
 .pb-4 {
   padding-bottom: 1rem;
+}
+
+.pb-\[2px\] {
+  padding-bottom: 2px;
 }
 
 .pl-2 {
@@ -2250,10 +2269,6 @@ body {
   padding-right: .625rem;
 }
 
-.pr-4 {
-  padding-right: 1rem;
-}
-
 .pr-5 {
   padding-right: 1.25rem;
 }
@@ -2294,6 +2309,10 @@ body {
   padding-top: 2rem;
 }
 
+.pt-\[0px\] {
+  padding-top: 0;
+}
+
 .pt-\[10px\] {
   padding-top: 10px;
 }
@@ -2310,8 +2329,8 @@ body {
   padding-top: 65%;
 }
 
-.pt-\[70px\] {
-  padding-top: 70px;
+.pt-\[85px\] {
+  padding-top: 85px;
 }
 
 .text-left {
@@ -2887,6 +2906,10 @@ body {
   filter: drop-shadow(4px 4px 12px #9aa5b526);
 }
 
+.blog-shadow:hover {
+  box-shadow: 0 4px 12px #9aa5b526;
+}
+
 .spinner {
   border: 5px solid #0000001a;
   width: 48px;
@@ -3098,6 +3121,10 @@ option:hover {
 
 .hover\:bg-secondary\/80:hover {
   background-color: hsl(var(--secondary) / .8);
+}
+
+.hover\:bg-white\/80:hover {
+  background-color: #fffc;
 }
 
 .hover\:text-accent-foreground:hover {
@@ -3561,6 +3588,26 @@ option:hover {
 }
 
 @media not all and (width >= 1280px) {
+  .max-xl\:left-4 {
+    left: 1rem;
+  }
+
+  .max-xl\:right-4 {
+    right: 1rem;
+  }
+
+  .max-xl\:h-\[36px\] {
+    height: 36px;
+  }
+
+  .max-xl\:h-\[45px\] {
+    height: 45px;
+  }
+
+  .max-xl\:w-\[36px\] {
+    width: 36px;
+  }
+
   .max-xl\:pt-\[50px\] {
     padding-top: 50px;
   }
@@ -3675,6 +3722,10 @@ option:hover {
     margin-right: auto;
   }
 
+  .max-sm\:mb-12 {
+    margin-bottom: 3rem;
+  }
+
   .max-sm\:mb-5 {
     margin-bottom: 1.25rem;
   }
@@ -3707,6 +3758,10 @@ option:hover {
     margin-top: 1.5rem;
   }
 
+  .max-sm\:mt-7 {
+    margin-top: 1.75rem;
+  }
+
   .max-sm\:mt-8 {
     margin-top: 2rem;
   }
@@ -3731,8 +3786,16 @@ option:hover {
     height: auto;
   }
 
+  .max-sm\:w-\[100\%\] {
+    width: 100%;
+  }
+
   .max-sm\:w-\[45px\] {
     width: 45px;
+  }
+
+  .max-sm\:w-\[85\%\] {
+    width: 85%;
   }
 
   .max-sm\:w-full {
@@ -3809,10 +3872,6 @@ option:hover {
 
   .max-sm\:text-\[11px\] {
     font-size: 11px;
-  }
-
-  .max-sm\:text-\[13px\] {
-    font-size: 13px;
   }
 
   .max-sm\:text-\[19px\] {
@@ -4212,6 +4271,10 @@ option:hover {
     height: 41px;
   }
 
+  .md\:h-\[48px\] {
+    height: 48px;
+  }
+
   .md\:min-h-\[441px\] {
     min-height: 441px;
   }
@@ -4321,9 +4384,9 @@ option:hover {
     padding-right: 2rem;
   }
 
-  .md\:px-\[40px\] {
-    padding-left: 40px;
-    padding-right: 40px;
+  .md\:px-\[70px\] {
+    padding-left: 70px;
+    padding-right: 70px;
   }
 
   .md\:py-16 {
@@ -4378,8 +4441,8 @@ option:hover {
     position: absolute;
   }
 
-  .lg\:right-\[-6\%\] {
-    right: -6%;
+  .lg\:right-\[-5\%\] {
+    right: -5%;
   }
 
   .lg\:top-\[-62\%\] {
@@ -4592,6 +4655,11 @@ option:hover {
     padding-right: 0;
   }
 
+  .lg\:px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
   .lg\:px-5 {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
@@ -4718,6 +4786,11 @@ option:hover {
 
   .xl\:gap-\[64px\] {
     gap: 64px;
+  }
+
+  .xl\:px-\[100px\] {
+    padding-left: 100px;
+    padding-right: 100px;
   }
 
   .xl\:py-5 {

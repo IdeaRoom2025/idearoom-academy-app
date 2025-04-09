@@ -37,7 +37,7 @@ export default function Courses() {
         <>
           <CourseItem />
           <div className="flex items-center justify-center text-center">
-            <Link href="/courses">
+            <Link className="max-sm:w-full" href="/courses">
               <SeeAllButton buttonText="ყველას ნახვა" />
             </Link>
           </div>

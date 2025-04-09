@@ -515,11 +515,29 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, k: __turbopack_refresh__, m: module, z: __turbopack_require_stub__ } = __turbopack_context__;
 {
 __turbopack_esm__({
+    "checkSocialIdExists": (()=>checkSocialIdExists),
     "createUser": (()=>createUser)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$services$2f$supabase$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/app/services/supabase.js [app-client] (ecmascript)");
 ;
+async function checkSocialIdExists(socialId) {
+    const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$services$2f$supabase$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].from("users_form").select("socialId").eq("socialId", socialId).limit(1);
+    if (error) {
+        console.error("Error checking social ID:", error);
+        throw new Error("დროებითი შეფერხება, გთხოვთ სცადოთ მოგვიანებით");
+    }
+    return data && data.length > 0;
+}
 async function createUser(userData) {
+    // Validate that socialId is exactly 11 digits
+    if (!/^\d{11}$/.test(userData.socialId)) {
+        throw new Error("პირადი ნომერი უნდა შეიცავდეს ზუსტად 11 ციფრს");
+    }
+    // Check if user with this social ID already exists
+    const exists = await checkSocialIdExists(userData.socialId);
+    if (exists) {
+        throw new Error("მოცემული პირადი ნომრით მომხმარებელი უკვე დარეგისტრირებულია");
+    }
     console.log("Creating user with data:", userData);
     const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$services$2f$supabase$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].from("users_form").insert([
         {
@@ -598,8 +616,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$checkbox
 var __TURBOPACK__imported__module__$5b$project$5d2f$public$2f$sign$2d$upPic$2e$png$2e$mjs__$7b$__IMAGE__$3d3e$__$225b$project$5d2f$public$2f$sign$2d$upPic$2e$png__$5b$app$2d$client$5d$__$28$static$2922$__$7d$__$5b$app$2d$client$5d$__$28$structured__image__object$2c$__ecmascript$29$__ = __turbopack_import__('[project]/public/sign-upPic.png.mjs { IMAGE => "[project]/public/sign-upPic.png [app-client] (static)" } [app-client] (structured image object, ecmascript)');
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$alert$2d$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/components/ui/alert-dialog.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/image.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$services$2f$apiUsers$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/app/services/apiUsers.jsx [app-client] (ecmascript)"); // Import the createUser function
-var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$services$2f$apiCourses$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/app/services/apiCourses.jsx [app-client] (ecmascript)"); // Import the getCourses function
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$services$2f$apiUsers$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/app/services/apiUsers.jsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$services$2f$apiCourses$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/app/services/apiCourses.jsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Calendar$3e$__ = __turbopack_import__("[project]/node_modules/lucide-react/dist/esm/icons/calendar.js [app-client] (ecmascript) <export default as Calendar>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__ = __turbopack_import__("[project]/node_modules/lucide-react/dist/esm/icons/chevron-down.js [app-client] (ecmascript) <export default as ChevronDown>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__ = __turbopack_import__("[project]/node_modules/lucide-react/dist/esm/icons/menu.js [app-client] (ecmascript) <export default as Menu>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_import__("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-client] (ecmascript) <export default as X>");
@@ -634,24 +653,16 @@ const VisuallyHidden = ({ children })=>/*#__PURE__*/ (0, __TURBOPACK__imported__
 _c = VisuallyHidden;
 function Header() {
     _s();
-    const [date, setDate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
+    var _s1 = __turbopack_refresh__.signature();
     const [mobileMenuOpen, setMobileMenuOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [isRegistrationOpen, setIsRegistrationOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [isFullscreen, setIsFullscreen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [formError, setFormError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [formSuccess, setFormSuccess] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [courses, setCourses] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [isCoursesLoading, setIsCoursesLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const fullscreenChecked = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(false);
     const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
-    const [value, setValue] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [showNativePicker, setShowNativePicker] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    // ფუნქცია, რომელიც დააბრუნებს მხოლოდ მნიშვნელობას input-ის value-დან
-    const handleChange = (e)=>{
-        setValue(e.target.value);
-        setShowNativePicker(!!e.target.value); // თუ მნიშვნელობა არსებობს, აღარ ვაჩენთ placeholder-ს
-    };
     // Handle fullscreen check on initial render and window resize
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Header.useEffect": ()=>{
@@ -717,15 +728,25 @@ function Header() {
             setIsRegistrationOpen(open);
         }, 0);
     };
-    // Function to handle terms link click - close the modal
-    const handleTermsLinkClick = (e)=>{
-        e.preventDefault(); // Prevent default link behavior
-        setIsRegistrationOpen(false); // Close the registration modal
-        // Navigate to privacy page programmatically
-        window.location.href = "/privacy";
-    };
-    // Registration form component
+    // Registration form component - Now with its own state management
     const RegistrationForm = ()=>{
+        _s1();
+        const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+        const [dateValue, setDateValue] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
+        const [day, setDay] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
+        const [month, setMonth] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
+        const [year, setYear] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
+        // Add state for form field values to preserve them on validation errors
+        const [formValues, setFormValues] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
+            firstName: "",
+            lastName: "",
+            phoneNumber: "",
+            email: "",
+            socialId: "",
+            choosedCourse: "",
+            choosedMedia: "",
+            terms: false
+        });
         const handleCancel = ()=>{
             // უსაფრთხოდ ვხურავთ დიალოგს
             setTimeout(()=>{
@@ -734,56 +755,106 @@ function Header() {
                 setFormSuccess(false);
             }, 0);
         };
-        // Handle form submission: extract form data and insert into "users_form" table
+        // Function to handle form field changes
+        const handleInputChange = (e)=>{
+            const { name, value, type, checked } = e.target;
+            setFormValues((prev)=>({
+                    ...prev,
+                    [name]: type === "checkbox" ? checked : value
+                }));
+        };
+        // Function to open the date picker
+        const openDatePicker = ()=>{
+            const dateInput = document.getElementById("actual-dob-input");
+            if (dateInput && dateInput.showPicker) {
+                dateInput.showPicker();
+            } else if (dateInput) {
+                dateInput.focus();
+            }
+        };
+        // ფუნქცია native date picker-ის value-ს დასამუშავებლად
+        const handleDateChange = (e)=>{
+            const newValue = e.target.value;
+            setDateValue(newValue);
+            if (newValue) {
+                const [yearVal, monthVal, dayVal] = newValue.split("-");
+                setYear(yearVal);
+                setMonth(monthVal);
+                setDay(dayVal);
+            }
+        };
+        // ფუნქცია დღის, თვის და წლის მიხედვით სრული თარიღის განახლებისთვის
+        (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+            "Header.RegistrationForm.useEffect": ()=>{
+                if (day && month && year && year.length === 4) {
+                    const formattedDay = day.padStart(2, "0");
+                    const formattedMonth = month.padStart(2, "0");
+                    const formattedDate = `${year}-${formattedMonth}-${formattedDay}`;
+                    setDateValue(formattedDate);
+                }
+            }
+        }["Header.RegistrationForm.useEffect"], [
+            day,
+            month,
+            year
+        ]);
+        // Handle form submission: extract form data and validate
         const handleSubmit = async (e)=>{
             e.preventDefault();
             setIsLoading(true);
             setFormError("");
-            const formData = new FormData(e.target);
-            if (!formData.get("terms")) {
+            // Client-side validation for socialId (personal ID)
+            if (!/^\d{11}$/.test(formValues.socialId)) {
+                setFormError("პირადი ნომერი უნდა შეიცავდეს ზუსტად 11 ციფრს");
+                setIsLoading(false);
+                // Clear error message after 5 seconds
+                setTimeout(()=>{
+                    setFormError("");
+                }, 5000);
+                return;
+            }
+            if (!formValues.terms) {
                 setFormError("გთხოვთ დაეთანხმოთ წესებს და პირობებს");
                 setIsLoading(false);
+                // Clear error message after 5 seconds
+                setTimeout(()=>{
+                    setFormError("");
+                }, 5000);
                 return;
             }
             try {
-                // Get the course ID from the form
-                const courseId = formData.get("choosedCourse");
                 // Find the corresponding course object to get the title
-                const selectedCourse = courses.find((course)=>course.id.toString() === courseId);
+                const selectedCourse = courses.find((course)=>course.id.toString() === formValues.choosedCourse);
                 // Get the course title (or use a fallback if not found)
                 const courseTitle = selectedCourse ? selectedCourse.title : "";
                 const userData = {
-                    firstName: formData.get("firstName"),
-                    lastName: formData.get("lastName"),
-                    email: formData.get("email"),
-                    phoneNumber: formData.get("phoneNumber"),
-                    birth_date: formData.get("birth_date"),
-                    socialId: formData.get("socialId"),
+                    firstName: formValues.firstName,
+                    lastName: formValues.lastName,
+                    email: formValues.email,
+                    phoneNumber: formValues.phoneNumber,
+                    birth_date: dateValue,
+                    socialId: formValues.socialId,
                     choosedCourse: courseTitle,
-                    choosedCourseId: courseId,
-                    choosedMedia: formData.get("choosedMedia")
+                    choosedCourseId: formValues.choosedCourse,
+                    choosedMedia: formValues.choosedMedia
                 };
                 await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$services$2f$apiUsers$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createUser"])(userData);
                 setFormSuccess(true);
-                e.target.reset();
                 setTimeout(()=>{
                     setIsRegistrationOpen(false);
                     setFormSuccess(false);
                 }, 3000);
             } catch (error) {
                 console.error("Registration error:", error);
-                setFormError("შეცდომა მოხდა რეგისტრაციისას. გთხოვთ, სცადოთ მოგვიანებით.");
+                // Display the specific error message from the API
+                setFormError(error.message || "შეცდომა მოხდა რეგისტრაციისას. გთხოვთ, სცადოთ მოგვიანებით.");
+                // Clear error message after 5 seconds
+                setTimeout(()=>{
+                    setFormError("");
+                }, 5000);
             } finally{
                 setIsLoading(false);
             }
-        };
-        // ვეთანხმები ტექსტზე დაჭერის დამუშავება
-        const handleTermsClick = (e)=>{
-            // თავიდან ავირიდოთ ბაბლინგი, რომ არ მოხდეს ჩეკბოქსის ჩართვა/გამორთვა
-            e.preventDefault();
-            e.stopPropagation();
-            // აქ შეგიძლიათ დაამატოთ წესებისა და პირობების დიალოგის ჩვენება
-            alert("წესებისა და პირობების გვერდი ჯერ ხელმისაწვდომი არ არის");
         };
         // Custom styles for select dropdown options
         const selectStyles = `
@@ -813,22 +884,22 @@ function Header() {
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                         src: __TURBOPACK__imported__module__$5b$project$5d2f$public$2f$sign$2d$upPic$2e$png$2e$mjs__$7b$__IMAGE__$3d3e$__$225b$project$5d2f$public$2f$sign$2d$upPic$2e$png__$5b$app$2d$client$5d$__$28$static$2922$__$7d$__$5b$app$2d$client$5d$__$28$structured__image__object$2c$__ecmascript$29$__["default"].src,
                         alt: "sign-up-illustration",
-                        className: "w-[544px]  object-cover"
+                        className: "w-[544px] object-cover"
                     }, void 0, false, {
                         fileName: "[project]/app/_components/Header.jsx",
-                        lineNumber: 221,
+                        lineNumber: 272,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/_components/Header.jsx",
-                    lineNumber: 220,
+                    lineNumber: 271,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: `w-full  lg:w-[50%] p-4 lg:p-8 ${isFullscreen ? "max-h-[80vh] overflow-y-auto" : "h-[650px] overflow-y-hidden"}`,
+                    className: `w-full lg:w-[50%] p-4 lg:p-8 ${isFullscreen ? "max-h-[80vh] overflow-y-auto" : "h-[650px] overflow-y-hidden"}`,
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "mb-12 flex items-center justify-between relative ",
+                            className: "mb-12 flex items-center justify-between relative",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     children: [
@@ -837,36 +908,36 @@ function Header() {
                                             children: "კურსზე რეგისტრაცია"
                                         }, void 0, false, {
                                             fileName: "[project]/app/_components/Header.jsx",
-                                            lineNumber: 237,
+                                            lineNumber: 288,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "mt-2 h-1 w-20 lg:w-24 rounded-[4px] bg-primary-500"
                                         }, void 0, false, {
                                             fileName: "[project]/app/_components/Header.jsx",
-                                            lineNumber: 241,
+                                            lineNumber: 292,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/_components/Header.jsx",
-                                    lineNumber: 236,
+                                    lineNumber: 287,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                    className: "lg:absolute lg:top-[-62%] right-[10px] max-lg:mt-[40px] lg:right-[-6%] cursor-pointer w-[30px] h-[30px] lg:w-[36px] lg:h-[36px] z-10",
+                                    className: "lg:absolute lg:top-[-62%] right-[10px] max-lg:mt-[40px] lg:right-[-5%] cursor-pointer w-[30px] h-[30px] lg:w-[36px] lg:h-[36px] z-10",
                                     src: __TURBOPACK__imported__module__$5b$project$5d2f$public$2f$cancel$2e$svg$2e$mjs__$7b$__IMAGE__$3d3e$__$225b$project$5d2f$public$2f$cancel$2e$svg__$5b$app$2d$client$5d$__$28$static$2922$__$7d$__$5b$app$2d$client$5d$__$28$structured__image__object$2c$__ecmascript$29$__["default"],
                                     onClick: handleCancel,
                                     alt: "cancel svg"
                                 }, void 0, false, {
                                     fileName: "[project]/app/_components/Header.jsx",
-                                    lineNumber: 243,
+                                    lineNumber: 294,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/_components/Header.jsx",
-                            lineNumber: 235,
+                            lineNumber: 286,
                             columnNumber: 11
                         }, this),
                         formSuccess ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -874,7 +945,7 @@ function Header() {
                             children: "რეგისტრაცია წარმატებით დასრულდა! მადლობა."
                         }, void 0, false, {
                             fileName: "[project]/app/_components/Header.jsx",
-                            lineNumber: 252,
+                            lineNumber: 303,
                             columnNumber: 13
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
                             onSubmit: handleSubmit,
@@ -887,40 +958,44 @@ function Header() {
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
                                                 id: "firstName",
                                                 name: "firstName",
+                                                value: formValues.firstName,
+                                                onChange: handleInputChange,
                                                 className: "w-full font-[500] mt-1 text-[#8F949A] bg-white shadow-none border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 lg:pl-4 h-[45px] lg:h-[50px]",
                                                 placeholder: "სახელი",
                                                 required: true
                                             }, void 0, false, {
                                                 fileName: "[project]/app/_components/Header.jsx",
-                                                lineNumber: 259,
+                                                lineNumber: 310,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/_components/Header.jsx",
-                                            lineNumber: 258,
+                                            lineNumber: 309,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
                                                 id: "lastName",
                                                 name: "lastName",
+                                                value: formValues.lastName,
+                                                onChange: handleInputChange,
                                                 className: "w-full font-[500] mt-1 text-[#8F949A] bg-white shadow-none border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 lg:pl-4 h-[45px] lg:h-[50px]",
                                                 placeholder: "გვარი",
                                                 required: true
                                             }, void 0, false, {
                                                 fileName: "[project]/app/_components/Header.jsx",
-                                                lineNumber: 268,
+                                                lineNumber: 321,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/_components/Header.jsx",
-                                            lineNumber: 267,
+                                            lineNumber: 320,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/_components/Header.jsx",
-                                    lineNumber: 257,
+                                    lineNumber: 308,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -930,72 +1005,80 @@ function Header() {
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
                                                 id: "telephone",
                                                 name: "phoneNumber",
+                                                value: formValues.phoneNumber,
+                                                onChange: handleInputChange,
                                                 className: "w-full font-[500] mt-1 text-[#8F949A] bg-white shadow-none border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 lg:pl-4 h-[45px] lg:h-[50px]",
                                                 placeholder: "ტელეფონი",
                                                 required: true
                                             }, void 0, false, {
                                                 fileName: "[project]/app/_components/Header.jsx",
-                                                lineNumber: 280,
+                                                lineNumber: 335,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/_components/Header.jsx",
-                                            lineNumber: 279,
+                                            lineNumber: 334,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "relative w-full rounded-[4px]",
+                                            className: "relative w-full",
                                             children: [
-                                                !value && !showNativePicker && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    onClick: ()=>{
-                                                        setTimeout(()=>{
-                                                            setShowNativePicker(true);
-                                                            // ფოკუსი გავაკეთოთ hidden input-ზე
-                                                            const dateInput = document.getElementById("actual-dob-input");
-                                                            if (dateInput && dateInput.showPicker) {
-                                                                dateInput.showPicker();
-                                                            } else if (dateInput) {
-                                                                dateInput.focus();
-                                                            }
-                                                        }, 0);
-                                                    },
-                                                    className: "absolute w-full rounded-[4px] inset-y-0 left-0 flex items-center pl-3 lg:pl-4 text-[#8F949A] text-[13px] lg:text-sm cursor-pointer",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "max-sm:text-[13px] rounded-[4px] w-full mt-3",
-                                                        children: "mm/dd/yyyy"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/_components/Header.jsx",
-                                                        lineNumber: 307,
-                                                        columnNumber: 23
-                                                    }, this)
-                                                }, void 0, false, {
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    onClick: openDatePicker,
+                                                    className: "flex justify-between items-center relative w-full rounded-[4px] border border-[#E7ECF2] h-[45px] lg:h-[50px] px-3 lg:px-4 cursor-pointer",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "flex items-center w-full",
+                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                className: "text-[#8F949A] text-[13px] lg:text-sm",
+                                                                children: dateValue ? `${day}/${month}/${year}` : "დღე / თვე / წელი"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/_components/Header.jsx",
+                                                                lineNumber: 352,
+                                                                columnNumber: 23
+                                                            }, this)
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/_components/Header.jsx",
+                                                            lineNumber: 351,
+                                                            columnNumber: 21
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Calendar$3e$__["Calendar"], {
+                                                            size: 20,
+                                                            className: "text-[#8F949A]"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/_components/Header.jsx",
+                                                            lineNumber: 358,
+                                                            columnNumber: 21
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
                                                     fileName: "[project]/app/_components/Header.jsx",
-                                                    lineNumber: 291,
-                                                    columnNumber: 21
+                                                    lineNumber: 347,
+                                                    columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
                                                     id: "actual-dob-input",
                                                     name: "birth_date",
                                                     type: "date",
-                                                    value: value,
-                                                    onChange: handleChange,
-                                                    className: `w-full font-[500] mt-1 ${value ? "text-secondary-500" : " text-transparent"} bg-white rounded-[4px] w-full border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 pr-4 lg:pl-4 h-[45px] lg:h-[50px]`,
+                                                    value: dateValue,
+                                                    onChange: handleDateChange,
+                                                    className: "sr-only",
                                                     required: true
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/_components/Header.jsx",
-                                                    lineNumber: 314,
+                                                    lineNumber: 362,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/_components/Header.jsx",
-                                            lineNumber: 289,
+                                            lineNumber: 346,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/_components/Header.jsx",
-                                    lineNumber: 278,
+                                    lineNumber: 333,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1006,40 +1089,44 @@ function Header() {
                                                 id: "email",
                                                 type: "email",
                                                 name: "email",
+                                                value: formValues.email,
+                                                onChange: handleInputChange,
                                                 className: "w-full font-[500] mt-1 text-[#8F949A] bg-white shadow-none border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 lg:pl-4 h-[45px] lg:h-[50px]",
                                                 placeholder: "ელ.ფოსტა",
                                                 required: true
                                             }, void 0, false, {
                                                 fileName: "[project]/app/_components/Header.jsx",
-                                                lineNumber: 330,
+                                                lineNumber: 376,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/_components/Header.jsx",
-                                            lineNumber: 329,
+                                            lineNumber: 375,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
                                                 id: "personalId",
                                                 name: "socialId",
+                                                value: formValues.socialId,
+                                                onChange: handleInputChange,
                                                 className: "w-full font-[500] mt-1 text-[#8F949A] bg-white shadow-none border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 lg:pl-4 h-[45px] lg:h-[50px]",
                                                 placeholder: "პირადი ნომერი",
                                                 required: true
                                             }, void 0, false, {
                                                 fileName: "[project]/app/_components/Header.jsx",
-                                                lineNumber: 340,
+                                                lineNumber: 388,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/_components/Header.jsx",
-                                            lineNumber: 339,
+                                            lineNumber: 387,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/_components/Header.jsx",
-                                    lineNumber: 328,
+                                    lineNumber: 374,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1049,7 +1136,8 @@ function Header() {
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                                 id: "course",
                                                 name: "choosedCourse",
-                                                defaultValue: "",
+                                                value: formValues.choosedCourse,
+                                                onChange: handleInputChange,
                                                 required: true,
                                                 className: "w-full mt-1 font-[500] text-[#8F949A] bg-white shadow-none border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 lg:pl-4 h-[45px] lg:h-[50px] rounded-[4px] cursor-pointer appearance-none focus:outline-none focus:ring-1 focus:ring-primary-500",
                                                 children: [
@@ -1059,7 +1147,7 @@ function Header() {
                                                         children: isCoursesLoading ? "მიმდინარეობს ჩატვირთვა..." : "აირჩიეთ კურსი"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/_components/Header.jsx",
-                                                        lineNumber: 359,
+                                                        lineNumber: 410,
                                                         columnNumber: 21
                                                     }, this),
                                                     courses.map((course)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1067,7 +1155,7 @@ function Header() {
                                                             children: course.title
                                                         }, course.id, false, {
                                                             fileName: "[project]/app/_components/Header.jsx",
-                                                            lineNumber: 365,
+                                                            lineNumber: 416,
                                                             columnNumber: 23
                                                         }, this)),
                                                     courses.length === 0 && !isCoursesLoading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -1077,7 +1165,7 @@ function Header() {
                                                                 children: "ვებ დეველოპმენტი"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/_components/Header.jsx",
-                                                                lineNumber: 372,
+                                                                lineNumber: 423,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1085,7 +1173,7 @@ function Header() {
                                                                 children: "მობაილ დეველოპმენტი"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/_components/Header.jsx",
-                                                                lineNumber: 373,
+                                                                lineNumber: 424,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1093,7 +1181,7 @@ function Header() {
                                                                 children: "გრაფიკული დიზაინი"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/_components/Header.jsx",
-                                                                lineNumber: 374,
+                                                                lineNumber: 425,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
@@ -1101,7 +1189,7 @@ function Header() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/_components/Header.jsx",
-                                                lineNumber: 352,
+                                                lineNumber: 402,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
@@ -1109,18 +1197,18 @@ function Header() {
                                                 size: 16
                                             }, void 0, false, {
                                                 fileName: "[project]/app/_components/Header.jsx",
-                                                lineNumber: 378,
+                                                lineNumber: 429,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/_components/Header.jsx",
-                                        lineNumber: 351,
+                                        lineNumber: 401,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/_components/Header.jsx",
-                                    lineNumber: 350,
+                                    lineNumber: 400,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1131,7 +1219,8 @@ function Header() {
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                                 id: "whereHeard",
                                                 name: "choosedMedia",
-                                                defaultValue: "",
+                                                value: formValues.choosedMedia,
+                                                onChange: handleInputChange,
                                                 required: true,
                                                 className: "w-full mt-1 font-[500] text-[#8F949A] bg-white shadow-none border border-[#E7ECF2] text-[13px] lg:text-sm pt-1 pl-3 lg:pl-4 h-[45px] lg:h-[50px] rounded-[4px] cursor-pointer appearance-none focus:outline-none focus:ring-1 focus:ring-primary-500",
                                                 children: [
@@ -1141,7 +1230,7 @@ function Header() {
                                                         children: "აირჩიეთ წყარო"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/_components/Header.jsx",
-                                                        lineNumber: 394,
+                                                        lineNumber: 446,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1149,7 +1238,7 @@ function Header() {
                                                         children: "Facebook"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/_components/Header.jsx",
-                                                        lineNumber: 397,
+                                                        lineNumber: 449,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1157,7 +1246,7 @@ function Header() {
                                                         children: "Instagram"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/_components/Header.jsx",
-                                                        lineNumber: 398,
+                                                        lineNumber: 450,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1165,7 +1254,7 @@ function Header() {
                                                         children: "მეგობრისგან"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/_components/Header.jsx",
-                                                        lineNumber: 399,
+                                                        lineNumber: 451,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1173,13 +1262,13 @@ function Header() {
                                                         children: "სხვა"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/_components/Header.jsx",
-                                                        lineNumber: 400,
+                                                        lineNumber: 452,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/_components/Header.jsx",
-                                                lineNumber: 387,
+                                                lineNumber: 438,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
@@ -1187,18 +1276,18 @@ function Header() {
                                                 size: 16
                                             }, void 0, false, {
                                                 fileName: "[project]/app/_components/Header.jsx",
-                                                lineNumber: 402,
+                                                lineNumber: 454,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/_components/Header.jsx",
-                                        lineNumber: 386,
+                                        lineNumber: 437,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/_components/Header.jsx",
-                                    lineNumber: 385,
+                                    lineNumber: 436,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1207,10 +1296,15 @@ function Header() {
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$checkbox$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Checkbox"], {
                                             id: "terms",
                                             name: "terms",
+                                            checked: formValues.terms,
+                                            onCheckedChange: (checked)=>setFormValues((prev)=>({
+                                                        ...prev,
+                                                        terms: checked
+                                                    })),
                                             required: true
                                         }, void 0, false, {
                                             fileName: "[project]/app/_components/Header.jsx",
-                                            lineNumber: 410,
+                                            lineNumber: 462,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Label"], {
@@ -1219,25 +1313,32 @@ function Header() {
                                             children: [
                                                 "ვეთანხმები",
                                                 " ",
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    onClick: handleTermsLinkClick,
-                                                    className: "text-[#5387C9] cursor-pointer",
-                                                    children: "წესებს და პირობებს"
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                    href: "/privacy",
+                                                    target: "_blank",
+                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-[#5387C9] cursor-pointer",
+                                                        children: "წესებს და პირობებს"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/_components/Header.jsx",
+                                                        lineNumber: 477,
+                                                        columnNumber: 21
+                                                    }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/_components/Header.jsx",
-                                                    lineNumber: 416,
+                                                    lineNumber: 476,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/_components/Header.jsx",
-                                            lineNumber: 411,
+                                            lineNumber: 471,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/_components/Header.jsx",
-                                    lineNumber: 409,
+                                    lineNumber: 461,
                                     columnNumber: 15
                                 }, this),
                                 formError && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1245,7 +1346,7 @@ function Header() {
                                     children: formError
                                 }, void 0, false, {
                                     fileName: "[project]/app/_components/Header.jsx",
-                                    lineNumber: 426,
+                                    lineNumber: 485,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1257,33 +1358,34 @@ function Header() {
                                         children: isLoading ? "მიმდინარეობს..." : "გაგზავნა"
                                     }, void 0, false, {
                                         fileName: "[project]/app/_components/Header.jsx",
-                                        lineNumber: 432,
+                                        lineNumber: 491,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/_components/Header.jsx",
-                                    lineNumber: 431,
+                                    lineNumber: 490,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/_components/Header.jsx",
-                            lineNumber: 256,
+                            lineNumber: 307,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/_components/Header.jsx",
-                    lineNumber: 228,
+                    lineNumber: 279,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/_components/Header.jsx",
-            lineNumber: 216,
+            lineNumber: 267,
             columnNumber: 7
         }, this);
     };
+    _s1(RegistrationForm, "eOI6/pVopz+NvzhjLAnSDom/Gls=");
     // Modal content style based on screen size
     const getDialogContentStyle = ()=>{
         return isFullscreen ? {
@@ -1307,7 +1409,7 @@ function Header() {
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$_components$2f$Logo$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/app/_components/Header.jsx",
-                        lineNumber: 468,
+                        lineNumber: 527,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -1321,12 +1423,12 @@ function Header() {
                                     children: "კურსები"
                                 }, void 0, false, {
                                     fileName: "[project]/app/_components/Header.jsx",
-                                    lineNumber: 472,
+                                    lineNumber: 531,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/_components/Header.jsx",
-                                lineNumber: 471,
+                                lineNumber: 530,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1340,12 +1442,12 @@ function Header() {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/_components/Header.jsx",
-                                    lineNumber: 482,
+                                    lineNumber: 541,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/_components/Header.jsx",
-                                lineNumber: 481,
+                                lineNumber: 540,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1356,12 +1458,12 @@ function Header() {
                                     children: "ბლოგი"
                                 }, void 0, false, {
                                     fileName: "[project]/app/_components/Header.jsx",
-                                    lineNumber: 492,
+                                    lineNumber: 551,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/_components/Header.jsx",
-                                lineNumber: 491,
+                                lineNumber: 550,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1372,12 +1474,12 @@ function Header() {
                                     children: "ჩვენს შესახებ"
                                 }, void 0, false, {
                                     fileName: "[project]/app/_components/Header.jsx",
-                                    lineNumber: 502,
+                                    lineNumber: 561,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/_components/Header.jsx",
-                                lineNumber: 501,
+                                lineNumber: 560,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1388,12 +1490,12 @@ function Header() {
                                     children: "კონტაქტი"
                                 }, void 0, false, {
                                     fileName: "[project]/app/_components/Header.jsx",
-                                    lineNumber: 512,
+                                    lineNumber: 571,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/_components/Header.jsx",
-                                lineNumber: 511,
+                                lineNumber: 570,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1408,12 +1510,12 @@ function Header() {
                                                 children: "რეგისტრაცია"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/_components/Header.jsx",
-                                                lineNumber: 527,
+                                                lineNumber: 586,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/_components/Header.jsx",
-                                            lineNumber: 526,
+                                            lineNumber: 585,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$alert$2d$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AlertDialogContent"], {
@@ -1425,35 +1527,35 @@ function Header() {
                                                     children: "კურსზე რეგისტრაცია"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/_components/Header.jsx",
-                                                    lineNumber: 539,
+                                                    lineNumber: 598,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(RegistrationForm, {}, void 0, false, {
                                                     fileName: "[project]/app/_components/Header.jsx",
-                                                    lineNumber: 542,
+                                                    lineNumber: 601,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/_components/Header.jsx",
-                                            lineNumber: 531,
+                                            lineNumber: 590,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/_components/Header.jsx",
-                                    lineNumber: 522,
+                                    lineNumber: 581,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/_components/Header.jsx",
-                                lineNumber: 521,
+                                lineNumber: 580,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/_components/Header.jsx",
-                        lineNumber: 470,
+                        lineNumber: 529,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1465,29 +1567,29 @@ function Header() {
                                 size: 24
                             }, void 0, false, {
                                 fileName: "[project]/app/_components/Header.jsx",
-                                lineNumber: 550,
+                                lineNumber: 609,
                                 columnNumber: 31
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__["Menu"], {
                                 size: 24
                             }, void 0, false, {
                                 fileName: "[project]/app/_components/Header.jsx",
-                                lineNumber: 550,
+                                lineNumber: 609,
                                 columnNumber: 49
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/_components/Header.jsx",
-                            lineNumber: 549,
+                            lineNumber: 608,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/_components/Header.jsx",
-                        lineNumber: 548,
+                        lineNumber: 607,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/_components/Header.jsx",
-                lineNumber: 467,
+                lineNumber: 526,
                 columnNumber: 7
             }, this),
             mobileMenuOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1503,12 +1605,12 @@ function Header() {
                                 children: "კურსები"
                             }, void 0, false, {
                                 fileName: "[project]/app/_components/Header.jsx",
-                                lineNumber: 559,
+                                lineNumber: 618,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/_components/Header.jsx",
-                            lineNumber: 558,
+                            lineNumber: 617,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1519,12 +1621,12 @@ function Header() {
                                 children: "შეთავაზება"
                             }, void 0, false, {
                                 fileName: "[project]/app/_components/Header.jsx",
-                                lineNumber: 570,
+                                lineNumber: 629,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/_components/Header.jsx",
-                            lineNumber: 569,
+                            lineNumber: 628,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1535,12 +1637,12 @@ function Header() {
                                 children: "ბლოგი"
                             }, void 0, false, {
                                 fileName: "[project]/app/_components/Header.jsx",
-                                lineNumber: 581,
+                                lineNumber: 640,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/_components/Header.jsx",
-                            lineNumber: 580,
+                            lineNumber: 639,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1551,12 +1653,12 @@ function Header() {
                                 children: "ჩვენს შესახებ"
                             }, void 0, false, {
                                 fileName: "[project]/app/_components/Header.jsx",
-                                lineNumber: 592,
+                                lineNumber: 651,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/_components/Header.jsx",
-                            lineNumber: 591,
+                            lineNumber: 650,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1567,12 +1669,12 @@ function Header() {
                                 children: "კონტაქტი"
                             }, void 0, false, {
                                 fileName: "[project]/app/_components/Header.jsx",
-                                lineNumber: 603,
+                                lineNumber: 662,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/_components/Header.jsx",
-                            lineNumber: 602,
+                            lineNumber: 661,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1588,12 +1690,12 @@ function Header() {
                                             children: "რეგისტრაცია"
                                         }, void 0, false, {
                                             fileName: "[project]/app/_components/Header.jsx",
-                                            lineNumber: 619,
+                                            lineNumber: 678,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/_components/Header.jsx",
-                                        lineNumber: 618,
+                                        lineNumber: 677,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$alert$2d$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AlertDialogContent"], {
@@ -1605,50 +1707,50 @@ function Header() {
                                                 children: "კურსზე რეგისტრაცია"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/_components/Header.jsx",
-                                                lineNumber: 629,
+                                                lineNumber: 688,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(RegistrationForm, {}, void 0, false, {
                                                 fileName: "[project]/app/_components/Header.jsx",
-                                                lineNumber: 632,
+                                                lineNumber: 691,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/_components/Header.jsx",
-                                        lineNumber: 621,
+                                        lineNumber: 680,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/_components/Header.jsx",
-                                lineNumber: 614,
+                                lineNumber: 673,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/_components/Header.jsx",
-                            lineNumber: 613,
+                            lineNumber: 672,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/_components/Header.jsx",
-                    lineNumber: 557,
+                    lineNumber: 616,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/_components/Header.jsx",
-                lineNumber: 556,
+                lineNumber: 615,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/_components/Header.jsx",
-        lineNumber: 466,
+        lineNumber: 525,
         columnNumber: 5
     }, this);
 }
-_s(Header, "lh0Y75XBs3DHHsMDS6S49F4oFlA=", false, function() {
+_s(Header, "VyXrBElGemAIBZZ7YRI0KtTDJH8=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"]
     ];

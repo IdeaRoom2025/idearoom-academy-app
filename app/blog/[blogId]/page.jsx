@@ -84,9 +84,11 @@ export default async function BlogPage({ params }) {
 
   return (
     <section className="container max-sm:max-w-[90%] mt-[128px] mx-auto">
-      <HeadTop headText="ბლოგი" blogTitle={blog.title} />
+      <div className="max-sm:mb-12">
+        <HeadTop headText="ბლოგი" blogTitle={blog.title} />
+      </div>
       <div className="bg-white relative rounded-[20px] p-6 sm:p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between min-h-[475px]">
-        <div className="w-full md:w-auto md:mt-[-40px] mb-6 md:mb-0">
+        <div className="w-full  md:w-auto md:mt-[-40px] mb-6 md:mb-0">
           <h3 className="text-lg sm:text-xl text-secondary-500 font-bold caps-text max-w-[500px] mb-3 sm:mb-5">
             {blog.title}
           </h3>

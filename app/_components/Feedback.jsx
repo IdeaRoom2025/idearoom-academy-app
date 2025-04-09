@@ -147,11 +147,11 @@ export default function Feedback() {
             )}
           </div>
           <div>
-            <p className="font-semibold caps-text text-secondary-500 text-sm">
+            <p className="font-semibold mb-[-6px] caps-text text-secondary-500 text-sm">
               {testimonial.fullName}
             </p>
 
-            <span className="text-[#706A6A] caps-text text-sm">
+            <span className="text-[#706A6A] regular-text text-[13px]">
               {testimonial.course}
             </span>
           </div>

@@ -51,12 +51,17 @@ export default function Page() {
 
   return (
     <div className="container mx-auto max-sm:max-w-[90%] mt-[80px] py-8">
-      <HeadTopCourse>
-        <p className="cursor-pointer">კურსები</p>
-      </HeadTopCourse>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="mt-2">
+        <HeadTopCourse>
+          <p className="cursor-pointer">კურსები</p>
+        </HeadTopCourse>
+      </div>
+      <div className="grid grid-cols-1 mt-5 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {courses.map((course) => (
-          <div key={course.id} className="bg-white relative rounded-[20px] p-6">
+          <div
+            key={course.id}
+            className="bg-white blog-shadow relative rounded-[20px] p-6"
+          >
             <div className="relative">
               <img
                 className="mb-5 w-full relative"

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { Button } from "../../components/ui/button";
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Calendar } from "lucide-react";
 import Logo from "../_components/Logo";
 import cancel from "../../public/cancel.svg";
 import { usePathname } from "next/navigation";
@@ -17,8 +17,8 @@ import {
   AlertDialogTrigger,
 } from "../../components/ui/alert-dialog";
 import Image from "next/image";
-import { createUser } from "../services/apiUsers"; // Import the createUser function
-import { getCourses } from "../services/apiCourses"; // Import the getCourses function
+import { createUser } from "../services/apiUsers";
+import { getCourses } from "../services/apiCourses";
 
 // VisuallyHidden component for accessibility
 const VisuallyHidden = ({ children }) => (
@@ -28,25 +28,15 @@ const VisuallyHidden = ({ children }) => (
 );
 
 export default function Header() {
-  const [date, setDate] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [formError, setFormError] = useState("");
   const [formSuccess, setFormSuccess] = useState(false);
   const [courses, setCourses] = useState([]);
   const [isCoursesLoading, setIsCoursesLoading] = useState(false);
   const fullscreenChecked = useRef(false);
   const pathname = usePathname();
-  const [value, setValue] = useState("");
-  const [showNativePicker, setShowNativePicker] = useState(false);
-
-  // ფუნქცია, რომელიც დააბრუნებს მხოლოდ მნიშვნელობას input-ის value-დან
-  const handleChange = (e) => {
-    setValue(e.target.value);
-    setShowNativePicker(!!e.target.value); // თუ მნიშვნელობა არსებობს, აღარ ვაჩენთ placeholder-ს
-  };
 
   // Handle fullscreen check on initial render and window resize
   useEffect(() => {
@@ -109,16 +99,26 @@ export default function Header() {
     }, 0);
   };
 
-  // Function to handle terms link click - close the modal
-  const handleTermsLinkClick = (e) => {
-    e.preventDefault(); // Prevent default link behavior
-    setIsRegistrationOpen(false); // Close the registration modal
-    // Navigate to privacy page programmatically
-    window.location.href = "/privacy";
-  };
-
-  // Registration form component
+  // Registration form component - Now with its own state management
   const RegistrationForm = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [dateValue, setDateValue] = useState("");
+    const [day, setDay] = useState("");
+    const [month, setMonth] = useState("");
+    const [year, setYear] = useState("");
+
+    // Add state for form field values to preserve them on validation errors
+    const [formValues, setFormValues] = useState({
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+      email: "",
+      socialId: "",
+      choosedCourse: "",
+      choosedMedia: "",
+      terms: false,
+    });
+
     const handleCancel = () => {
       // უსაფრთხოდ ვხურავთ დიალოგს
       setTimeout(() => {
@@ -128,48 +128,102 @@ export default function Header() {
       }, 0);
     };
 
-    // Handle form submission: extract form data and insert into "users_form" table
+    // Function to handle form field changes
+    const handleInputChange = (e) => {
+      const { name, value, type, checked } = e.target;
+      setFormValues((prev) => ({
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      }));
+    };
+
+    // Function to open the date picker
+    const openDatePicker = () => {
+      const dateInput = document.getElementById("actual-dob-input");
+      if (dateInput && dateInput.showPicker) {
+        dateInput.showPicker();
+      } else if (dateInput) {
+        dateInput.focus();
+      }
+    };
+
+    // ფუნქცია native date picker-ის value-ს დასამუშავებლად
+    const handleDateChange = (e) => {
+      const newValue = e.target.value;
+      setDateValue(newValue);
+
+      if (newValue) {
+        const [yearVal, monthVal, dayVal] = newValue.split("-");
+        setYear(yearVal);
+        setMonth(monthVal);
+        setDay(dayVal);
+      }
+    };
+
+    // ფუნქცია დღის, თვის და წლის მიხედვით სრული თარიღის განახლებისთვის
+    useEffect(() => {
+      if (day && month && year && year.length === 4) {
+        const formattedDay = day.padStart(2, "0");
+        const formattedMonth = month.padStart(2, "0");
+        const formattedDate = `${year}-${formattedMonth}-${formattedDay}`;
+        setDateValue(formattedDate);
+      }
+    }, [day, month, year]);
+
+    // Handle form submission: extract form data and validate
     const handleSubmit = async (e) => {
       e.preventDefault();
       setIsLoading(true);
       setFormError("");
 
-      const formData = new FormData(e.target);
+      // Client-side validation for socialId (personal ID)
+      if (!/^\d{11}$/.test(formValues.socialId)) {
+        setFormError("პირადი ნომერი უნდა შეიცავდეს ზუსტად 11 ციფრს");
+        setIsLoading(false);
 
-      if (!formData.get("terms")) {
+        // Clear error message after 5 seconds
+        setTimeout(() => {
+          setFormError("");
+        }, 5000);
+
+        return;
+      }
+
+      if (!formValues.terms) {
         setFormError("გთხოვთ დაეთანხმოთ წესებს და პირობებს");
         setIsLoading(false);
+
+        // Clear error message after 5 seconds
+        setTimeout(() => {
+          setFormError("");
+        }, 5000);
+
         return;
       }
 
       try {
-        // Get the course ID from the form
-        const courseId = formData.get("choosedCourse");
-
         // Find the corresponding course object to get the title
         const selectedCourse = courses.find(
-          (course) => course.id.toString() === courseId
+          (course) => course.id.toString() === formValues.choosedCourse
         );
 
         // Get the course title (or use a fallback if not found)
         const courseTitle = selectedCourse ? selectedCourse.title : "";
 
         const userData = {
-          firstName: formData.get("firstName"),
-          lastName: formData.get("lastName"),
-          email: formData.get("email"),
-          phoneNumber: formData.get("phoneNumber"),
-          birth_date: formData.get("birth_date"),
-          socialId: formData.get("socialId"),
+          firstName: formValues.firstName,
+          lastName: formValues.lastName,
+          email: formValues.email,
+          phoneNumber: formValues.phoneNumber,
+          birth_date: dateValue,
+          socialId: formValues.socialId,
           choosedCourse: courseTitle, // Save the course title instead of ID
-          choosedCourseId: courseId, // Optionally keep the ID as well
-          choosedMedia: formData.get("choosedMedia"),
+          choosedCourseId: formValues.choosedCourse, // Optionally keep the ID as well
+          choosedMedia: formValues.choosedMedia,
         };
 
         await createUser(userData);
         setFormSuccess(true);
-
-        e.target.reset();
 
         setTimeout(() => {
           setIsRegistrationOpen(false);
@@ -177,22 +231,19 @@ export default function Header() {
         }, 3000);
       } catch (error) {
         console.error("Registration error:", error);
+        // Display the specific error message from the API
         setFormError(
-          "შეცდომა მოხდა რეგისტრაციისას. გთხოვთ, სცადოთ მოგვიანებით."
+          error.message ||
+            "შეცდომა მოხდა რეგისტრაციისას. გთხოვთ, სცადოთ მოგვიანებით."
         );
+
+        // Clear error message after 5 seconds
+        setTimeout(() => {
+          setFormError("");
+        }, 5000);
       } finally {
         setIsLoading(false);
       }
-    };
-
-    // ვეთანხმები ტექსტზე დაჭერის დამუშავება
-    const handleTermsClick = (e) => {
-      // თავიდან ავირიდოთ ბაბლინგი, რომ არ მოხდეს ჩეკბოქსის ჩართვა/გამორთვა
-      e.preventDefault();
-      e.stopPropagation();
-
-      // აქ შეგიძლიათ დაამატოთ წესებისა და პირობების დიალოგის ჩვენება
-      alert("წესებისა და პირობების გვერდი ჯერ ხელმისაწვდომი არ არის");
     };
 
     // Custom styles for select dropdown options
@@ -221,18 +272,18 @@ export default function Header() {
           <img
             src={signUpPic.src}
             alt="sign-up-illustration"
-            className="w-[544px]  object-cover"
+            className="w-[544px] object-cover"
           />
         </div>
 
         <div
-          className={`w-full  lg:w-[50%] p-4 lg:p-8 ${
+          className={`w-full lg:w-[50%] p-4 lg:p-8 ${
             isFullscreen
               ? "max-h-[80vh] overflow-y-auto"
               : "h-[650px] overflow-y-hidden"
           }`}
         >
-          <div className="mb-12 flex items-center justify-between relative ">
+          <div className="mb-12 flex items-center justify-between relative">
             <div>
               <h2 className="text-xl max-lg:mt-[48px] lg:text-2xl font-bold text-[#434A53]">
                 კურსზე რეგისტრაცია
@@ -241,7 +292,7 @@ export default function Header() {
               <div className="mt-2 h-1 w-20 lg:w-24 rounded-[4px] bg-primary-500"></div>
             </div>
             <Image
-              className="lg:absolute lg:top-[-62%] right-[10px] max-lg:mt-[40px] lg:right-[-6%] cursor-pointer w-[30px] h-[30px] lg:w-[36px] lg:h-[36px] z-10"
+              className="lg:absolute lg:top-[-62%] right-[10px] max-lg:mt-[40px] lg:right-[-5%] cursor-pointer w-[30px] h-[30px] lg:w-[36px] lg:h-[36px] z-10"
               src={cancel}
               onClick={handleCancel}
               alt="cancel svg"
@@ -259,6 +310,8 @@ export default function Header() {
                   <Input
                     id="firstName"
                     name="firstName"
+                    value={formValues.firstName}
+                    onChange={handleInputChange}
                     className="w-full font-[500] mt-1 text-[#8F949A] bg-white shadow-none border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 lg:pl-4 h-[45px] lg:h-[50px]"
                     placeholder="სახელი"
                     required
@@ -268,6 +321,8 @@ export default function Header() {
                   <Input
                     id="lastName"
                     name="lastName"
+                    value={formValues.lastName}
+                    onChange={handleInputChange}
                     className="w-full font-[500] mt-1 text-[#8F949A] bg-white shadow-none border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 lg:pl-4 h-[45px] lg:h-[50px]"
                     placeholder="გვარი"
                     required
@@ -280,46 +335,37 @@ export default function Header() {
                   <Input
                     id="telephone"
                     name="phoneNumber"
+                    value={formValues.phoneNumber}
+                    onChange={handleInputChange}
                     className="w-full font-[500] mt-1 text-[#8F949A] bg-white shadow-none border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 lg:pl-4 h-[45px] lg:h-[50px]"
                     placeholder="ტელეფონი"
                     required
                   />
                 </div>
 
-                <div className="relative w-full rounded-[4px]">
-                  {!value && !showNativePicker && (
-                    <div
-                      className="absolute w-full rounded-[4px] inset-y-0 left-0 flex items-center pl-3 lg:pl-4 text-[#8F949A] text-[13px] lg:text-sm cursor-pointer"
-                      onClick={() => {
-                        setTimeout(() => {
-                          setShowNativePicker(true);
-                          // ფოკუსი გავაკეთოთ hidden input-ზე
-                          const dateInput =
-                            document.getElementById("actual-dob-input");
-                          if (dateInput && dateInput.showPicker) {
-                            dateInput.showPicker();
-                          } else if (dateInput) {
-                            dateInput.focus();
-                          }
-                        }, 0);
-                      }}
-                    >
-                      <p className="max-sm:text-[13px] rounded-[4px] w-full mt-3">
-                        mm/dd/yyyy
-                      </p>
+                <div className="relative w-full">
+                  <div
+                    className="flex justify-between items-center relative w-full rounded-[4px] border border-[#E7ECF2] h-[45px] lg:h-[50px] px-3 lg:px-4 cursor-pointer"
+                    onClick={openDatePicker}
+                  >
+                    <div className="flex items-center w-full">
+                      <span className="text-[#8F949A] text-[13px] lg:text-sm">
+                        {dateValue
+                          ? `${day}/${month}/${year}`
+                          : "დღე / თვე / წელი"}
+                      </span>
                     </div>
-                  )}
+                    <Calendar size={20} className="text-[#8F949A]" />
+                  </div>
 
-                  {/* ნამდვილი date input */}
+                  {/* ნამდვილი date input - დამალული, მაგრამ გამოიყენება form-ის submit-ისას */}
                   <Input
                     id="actual-dob-input"
                     name="birth_date"
                     type="date"
-                    value={value}
-                    onChange={handleChange}
-                    className={`w-full font-[500] mt-1 ${
-                      value ? "text-secondary-500" : " text-transparent"
-                    } bg-white rounded-[4px] w-full border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 pr-4 lg:pl-4 h-[45px] lg:h-[50px]`}
+                    value={dateValue}
+                    onChange={handleDateChange}
+                    className="sr-only"
                     required
                   />
                 </div>
@@ -331,6 +377,8 @@ export default function Header() {
                     id="email"
                     type="email"
                     name="email"
+                    value={formValues.email}
+                    onChange={handleInputChange}
                     className="w-full font-[500] mt-1 text-[#8F949A] bg-white shadow-none border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 lg:pl-4 h-[45px] lg:h-[50px]"
                     placeholder="ელ.ფოსტა"
                     required
@@ -340,6 +388,8 @@ export default function Header() {
                   <Input
                     id="personalId"
                     name="socialId"
+                    value={formValues.socialId}
+                    onChange={handleInputChange}
                     className="w-full font-[500] mt-1 text-[#8F949A] bg-white shadow-none border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 lg:pl-4 h-[45px] lg:h-[50px]"
                     placeholder="პირადი ნომერი"
                     required
@@ -352,7 +402,8 @@ export default function Header() {
                   <select
                     id="course"
                     name="choosedCourse"
-                    defaultValue=""
+                    value={formValues.choosedCourse}
+                    onChange={handleInputChange}
                     className="w-full mt-1 font-[500] text-[#8F949A] bg-white shadow-none border border-[#E7ECF2] text-[13px] lg:text-sm pt-2 pl-3 lg:pl-4 h-[45px] lg:h-[50px] rounded-[4px] cursor-pointer appearance-none focus:outline-none focus:ring-1 focus:ring-primary-500"
                     required
                   >
@@ -387,7 +438,8 @@ export default function Header() {
                   <select
                     id="whereHeard"
                     name="choosedMedia"
-                    defaultValue=""
+                    value={formValues.choosedMedia}
+                    onChange={handleInputChange}
                     className="w-full mt-1 font-[500] text-[#8F949A] bg-white shadow-none border border-[#E7ECF2] text-[13px] lg:text-sm pt-1 pl-3 lg:pl-4 h-[45px] lg:h-[50px] rounded-[4px] cursor-pointer appearance-none focus:outline-none focus:ring-1 focus:ring-primary-500"
                     required
                   >
@@ -407,18 +459,25 @@ export default function Header() {
               </div>
 
               <div className="flex items-center space-x-2">
-                <Checkbox id="terms" name="terms" required />
+                <Checkbox
+                  id="terms"
+                  name="terms"
+                  checked={formValues.terms}
+                  onCheckedChange={(checked) =>
+                    setFormValues((prev) => ({ ...prev, terms: checked }))
+                  }
+                  required
+                />
                 <Label
                   htmlFor="terms"
                   className="text-xs lg:text-sm regular-text cursor-pointer text-[#434A53]"
                 >
                   ვეთანხმები{" "}
-                  <span
-                    className="text-[#5387C9] cursor-pointer"
-                    onClick={handleTermsLinkClick}
-                  >
-                    წესებს და პირობებს
-                  </span>
+                  <Link href="/privacy" target="_blank">
+                    <span className="text-[#5387C9] cursor-pointer">
+                      წესებს და პირობებს
+                    </span>
+                  </Link>
                 </Label>
               </div>
 

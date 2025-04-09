@@ -269,9 +269,9 @@ export default function OfferPage({ params }) {
   return (
     <section className="container mx-auto max-sm:max-w-[90%] max-sm:mx-auto mt-[128px]">
       <HeadTopCourse isCoursesPage={false}>
-        <p className="cursor-pointer">{offer.title}</p>
+        <p className="cursor-pointer ">{offer.title}</p>
       </HeadTopCourse>
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12">
+      <div className="grid grid-cols-1 max-sm:mt-7 lg:grid-cols-12 gap-8 xl:gap-12">
         {/* მარცხენა კოლონა: კურსის დეტალები და სილაბუსი */}
         <div className="lg:col-span-7">
           <img

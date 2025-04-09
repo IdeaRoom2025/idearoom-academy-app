@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function HeadTop({ headText, blogTitle }) {
   return (
-    <div className="flex max-sm:flex-col max-sm:items-center max-sm:text-center items-center gap-3 my-5 sm:my-7">
+    <div className="flex flex-wrap items-center gap-3 my-5 sm:my-7">
       <Link href="/">
         <Image
           className="w-[14px] h-[12px] sm:w-[16px] sm:h-[14px]"
@@ -14,11 +14,7 @@ export default function HeadTop({ headText, blogTitle }) {
           alt="homeIcon-svg"
         />
       </Link>
-      <Image
-        className="mt-[2px] max-sm:rotate-90"
-        src={rightArrow}
-        alt="rightArrow-svg"
-      />
+      <Image className="mt-[2px]" src={rightArrow} alt="rightArrow-svg" />
       <Link href="/blog">
         <p className="caps-text text-xs hover:underline sm:text-sm font-regular text-[#6A737D] mt-[5px]">
           ბლოგი
@@ -26,11 +22,7 @@ export default function HeadTop({ headText, blogTitle }) {
       </Link>
       {blogTitle && (
         <>
-          <Image
-            className="mt-[2px] max-sm:rotate-90"
-            src={rightArrow}
-            alt="rightArrow-svg"
-          />
+          <Image className="mt-[2px]" src={rightArrow} alt="rightArrow-svg" />
           <p className="caps-text text-xs sm:text-sm font-regular text-[#6A737D] mt-[5px]">
             {blogTitle}
           </p>

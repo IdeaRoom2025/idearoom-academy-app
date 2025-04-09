@@ -42,7 +42,7 @@ export default function Page() {
             blogs.map((blog) => {
               return (
                 <div
-                  className="bg-white blog-shadow p-4 sm:p-5 rounded-[20px]"
+                  className="bg-white transition-all duration-200 blog-shadow p-4 sm:p-5 rounded-[20px]"
                   key={blog.id}
                 >
                   <img

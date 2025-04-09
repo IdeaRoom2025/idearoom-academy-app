@@ -1,4 +1,4 @@
-// File: C:\Users\KukhianidzeRevazi\OneDrive - Majorel\Desktop\idearoom-academy-app\app\api\offer\route.js
+// File: C:\Users\Lenovo\Documents\idearoom\app\api\offer\route.js
 import * as entry from '../../../../../app/api/offer/route.js'
 import type { NextRequest } from 'next/server.js'
 

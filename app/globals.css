@@ -20,6 +20,9 @@
 .blog-shadow {
   filter: drop-shadow(4px 4px 12px #9aa5b526);
 }
+.blog-shadow:hover {
+  box-shadow: #9aa5b526 0px 4px 12px 0px;
+}
 .spinner {
   border: 5px solid rgba(0, 0, 0, 0.1);
   width: 48px;

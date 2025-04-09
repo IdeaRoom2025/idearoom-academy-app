@@ -75,8 +75,8 @@ export default function Page() {
   };
 
   return (
-    <section className="container mt-[100px] max-sm:max-w-[90%] mx-auto py-8">
-      <div className="flex max-sm:flex-col max-sm:items-center max-sm:text-center items-center gap-3 my-3">
+    <section className="container mt-[90px] max-sm:max-w-[90%] mx-auto py-8">
+      <div className="flex items-center gap-3 my-3">
         <Link href="/">
           <Image
             className="w-[14px] h-[12px] sm:w-[16px] sm:h-[14px]"
@@ -84,11 +84,7 @@ export default function Page() {
             alt="homeIcon-svg"
           />
         </Link>
-        <Image
-          className="mt-[2px] max-sm:rotate-90"
-          src={rightArrow}
-          alt="rightArrow-svg"
-        />
+        <Image className="mt-[2px]" src={rightArrow} alt="rightArrow-svg" />
         <div>
           <Link href="/contact">
             <p className="caps-text text-xs hover:underline sm:text-sm font-regular text-[#6A737D] mt-[5px]">
@@ -98,7 +94,7 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="relative w-full h-[511px] mt-[38px] mb-12">
+      <div className="relative w-full h-[511px] mt-[30px] mb-12">
         {!mapLoaded && (
           <section className="absolute inset-0 flex items-center justify-center bg-white z-50">
             <div className="spinner"></div>
